@@ -16,35 +16,28 @@ import com.example.mynews.model.TopStoryResult;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TopStoryFragment extends Fragment {
+public abstract class TopStoryAbsFragment extends Fragment {
 
-    private final ArticleAdapter articleAdapter = new ArticleAdapter();
+    private final TopStoryArticleAdapter topStoryArticleAdapter = new TopStoryArticleAdapter();
     private Call<TopStoryResult> callTopStory;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_topstory, container, false);
+        View view = inflater.inflate(R.layout.main_fragments, container, false);
 
-        final RecyclerView recyclerView = view.findViewById(R.id.topstoryfragment_rv);
-        recyclerView.setAdapter(articleAdapter);
+        final RecyclerView recyclerView = view.findViewById(R.id.mainfragment_rv);
+        recyclerView.setAdapter(topStoryArticleAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.nytimes.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        NewYorkTimesAPI service = retrofit.create(NewYorkTimesAPI.class);
-        callTopStory = service.getTopStory("science", "5A6K8wBcTBzAf39MXVBC9IBC1K7bAdP4");
+        NewYorkTimesAPI service = RetrofitService.getInstance().create(NewYorkTimesAPI.class);
+        callTopStory = service.getTopStory(getSectionName());
         callTopStory.enqueue(new Callback<TopStoryResult>() {
             @Override
             public void onResponse(Call<TopStoryResult> call, Response<TopStoryResult> response) {
-                articleAdapter.setNewData(response.body().getTopStoryArticles());
+                topStoryArticleAdapter.setNewData(response.body().getTopStoryArticles());
             }
 
             @Override
@@ -55,6 +48,8 @@ public class TopStoryFragment extends Fragment {
 
         return view;
     }
+
+    protected abstract String getSectionName();
 
     @Override
     public void onDestroy() {

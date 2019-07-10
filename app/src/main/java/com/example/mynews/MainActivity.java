@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         List<Fragment> fragments = new ArrayList<Fragment>();
 
-        fragments.add(new TopStoryFragment());
-        fragments.add(new TopStoryFragment());
+        fragments.add(new ScienceTopStoryFragment());
+        fragments.add(new MostPopularFragment());
 
         ViewPager viewPager = findViewById(R.id.main_vp);
         viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), fragments

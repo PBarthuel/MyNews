@@ -11,13 +11,13 @@ import androidx.annotation.Px;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mynews.model.TopStoryArticle;
+import com.example.mynews.model.MostPopularArticle;
 
 import java.util.List;
 
-public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
+public class MostPopularArticleAdapter extends RecyclerView.Adapter<MostPopularArticleAdapter.ViewHolder> {
 
-    private List<TopStoryArticle> mList;
+    private List<MostPopularArticle> mList;
 
     @NonNull
     @Override
@@ -31,12 +31,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
 
-        TopStoryArticle topStoryArticle = mList.get(index);
+        MostPopularArticle topStoryArticle = mList.get(index);
 
         viewHolder.mTextViewTitle.setText(topStoryArticle.getTitle());
-        if (topStoryArticle.getMultimedia().size() > 0) {
+        if (topStoryArticle.getMedia().size() > 0) {
             @Px int pixelSize = viewHolder.mImageViewThumbnail.getContext().getResources().getDimensionPixelSize(R.dimen.image_size);
-            Glide.with(viewHolder.mImageViewThumbnail).load(topStoryArticle.getMultimedia().get(0).getUrl()).into(viewHolder.mImageViewThumbnail);
+            Glide.with(viewHolder.mImageViewThumbnail).load(topStoryArticle.getMedia().get(0).getMediaMetadata().get(0).getUrl()).into(viewHolder.mImageViewThumbnail);
         }
     }
 
@@ -45,7 +45,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return mList == null ? 0 : mList.size();
     }
 
-    public void setNewData(List<TopStoryArticle> list) {
+    public void setNewData(List<MostPopularArticle> list) {
         mList = list;
         notifyDataSetChanged();
     }

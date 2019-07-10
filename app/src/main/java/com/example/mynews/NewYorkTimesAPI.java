@@ -11,9 +11,9 @@ import retrofit2.http.Query;
 public interface NewYorkTimesAPI {
 
     @GET("svc/topstories/v2/{topStorySection}.json")
-    Call<TopStoryResult> getTopStory(@Path("topStorySection") String section, @Query("api-key")String apiKey);
+    Call<TopStoryResult> getTopStory(@Path("topStorySection") String section);
 
     @GET("svc/mostpopular/v2/emailed/7.json")
-    Call<MostPopularResult> getMostPopularStory(@Query("api-key")String apiKey);
+    Call<MostPopularResult> getMostPopularStory();
 
 }
