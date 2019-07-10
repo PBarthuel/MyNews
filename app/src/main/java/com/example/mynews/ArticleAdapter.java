@@ -11,12 +11,13 @@ import androidx.annotation.Px;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mynews.model.TopStoryArticle;
 
 import java.util.List;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
-    private List<Result> mList;
+    private List<TopStoryArticle> mList;
 
     @NonNull
     @Override
@@ -29,12 +30,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
-        Result result = mList.get(index);
-        viewHolder.mTextViewTitle.setText(result.getTitle());
-        viewHolder.mTextViewSection.setText(result.getSection());
-        if (result.getMultimedia().size() > 0) {
+
+        TopStoryArticle topStoryArticle = mList.get(index);
+
+        viewHolder.mTextViewTitle.setText(topStoryArticle.getTitle());
+        if (topStoryArticle.getMultimedia().size() > 0) {
             @Px int pixelSize = viewHolder.mImageViewThumbnail.getContext().getResources().getDimensionPixelSize(R.dimen.image_size);
-            Glide.with(viewHolder.mImageViewThumbnail).load(result.getMultimedia().get(0).getUrl()).into(viewHolder.mImageViewThumbnail);
+            Glide.with(viewHolder.mImageViewThumbnail).load(topStoryArticle.getMultimedia().get(0).getUrl()).into(viewHolder.mImageViewThumbnail);
         }
     }
 
@@ -43,7 +45,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return mList == null ? 0 : mList.size();
     }
 
-    public void setNewData(List<Result> list) {
+    public void setNewData(List<TopStoryArticle> list) {
         mList = list;
         notifyDataSetChanged();
     }
@@ -51,13 +53,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mTextViewTitle;
-        private final TextView mTextViewSection;
         private final ImageView mImageViewThumbnail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextViewTitle = itemView.findViewById(R.id.main_item_tv_title);
-            mTextViewSection = itemView.findViewById(R.id.main_item_tv_Section);
             mImageViewThumbnail = itemView.findViewById(R.id.main_item_iv_thumbnail);
         }
     }

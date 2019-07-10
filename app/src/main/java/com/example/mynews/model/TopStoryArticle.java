@@ -1,10 +1,10 @@
-package com.example.mynews;
+package com.example.mynews.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class TopStoryArticle {
 
     @SerializedName("section")
     @Expose

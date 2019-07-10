@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -23,7 +23,7 @@ public class TopStoryResult {
     private Integer numResults;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<TopStoryArticle> topStoryArticles = null;
 
     public String getStatus() {
         return status;
@@ -65,12 +65,12 @@ public class TopStoryResult {
         this.numResults = numResults;
     }
 
-    public List<Result> getResults() {
-        return results;
+    public List<TopStoryArticle> getTopStoryArticles() {
+        return topStoryArticles;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
+    public void setTopStoryArticles(List<TopStoryArticle> topStoryArticles) {
+        this.topStoryArticles = topStoryArticles;
     }
 
 }
