@@ -8,9 +8,9 @@ import java.util.List;
 
 class MainViewPagerAdapter extends FragmentPagerAdapter {
 
-    List<Fragment> fragments;
+    List<NamedFragment> fragments;
 
-    public MainViewPagerAdapter(FragmentManager supportFragmentManager, List<Fragment> fragments) {
+    public MainViewPagerAdapter(FragmentManager supportFragmentManager, List<NamedFragment> fragments) {
         super(supportFragmentManager);
 
         this.fragments = fragments;
@@ -29,6 +29,6 @@ class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Page " + position;
+        return fragments.get(position).getTitle();
     }
 }

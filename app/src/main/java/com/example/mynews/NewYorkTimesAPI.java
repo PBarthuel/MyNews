@@ -1,12 +1,11 @@
 package com.example.mynews;
 
-import com.example.mynews.model.MostPopularResult;
-import com.example.mynews.model.TopStoryResult;
+import com.example.mynews.model.data.MostPopularResult;
+import com.example.mynews.model.data.TopStoryResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface NewYorkTimesAPI {
 

@@ -1,5 +1,5 @@
 
-package com.example.mynews.model;
+package com.example.mynews.model.data;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
