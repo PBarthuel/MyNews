@@ -1,5 +1,6 @@
 package com.example.mynews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -92,7 +93,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_notifications) {
+            return true;
+        }
+        if (id == R.id.action_help) {
+            return true;
+        }
+        if (id == R.id.action_about) {
+            return true;
+        }
+        if (id == R.id.menu_activity_search) {
+            startActivity(new Intent(this, SearchActivity.class));
             return true;
         }
 
