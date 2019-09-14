@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_top_story) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_most_popular) {
 
         } else if (id == R.id.nav_arts) {

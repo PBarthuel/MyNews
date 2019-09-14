@@ -40,9 +40,29 @@ public class SearchManagerTest {
     }
 
     @Test
-    public void should_return_false_when_user_input_is_an_accent_character () {
+    public void should_return_false_when_user_input_is_an_grave_accent_character () {
+        //Given
+        String userInput = "è";
+        //When
+        boolean result = searchManager.isUserInputCorrect(userInput);
+        //Then
+        assertFalse(result);
+    }
+
+    @Test
+    public void should_return_false_when_user_input_is_an_aigu_accent_character () {
         //Given
         String userInput = "é";
+        //When
+        boolean result = searchManager.isUserInputCorrect(userInput);
+        //Then
+        assertFalse(result);
+    }
+
+    @Test
+    public void should_return_false_when_user_input_is_an_a_with_an_accent_character () {
+        //Given
+        String userInput = "à";
         //When
         boolean result = searchManager.isUserInputCorrect(userInput);
         //Then
