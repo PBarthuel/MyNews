@@ -59,17 +59,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_top_story) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_most_popular) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_arts) {
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_business) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        }else if (id == R.id.nav_technology) {
 
         }
 
