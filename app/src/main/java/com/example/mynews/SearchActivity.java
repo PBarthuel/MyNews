@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class SearchActivity extends AppCompatActivity {
 
     private SearchManager searchManager = new SearchManager();
@@ -21,6 +23,7 @@ public class SearchActivity extends AppCompatActivity {
         Button button = findViewById(R.id.search_btn_launch_search);
         final EditText editText = findViewById(R.id.search_et_user);
         CheckBox artsCheckBox = findViewById(R.id.search_arts_checkbox);
+        artsCheckBox.setTag("arts");
         CheckBox politicsCheckBox = findViewById(R.id.search_politics_checkbox);
         CheckBox buisnessCheckBox = findViewById(R.id.search_business_checkbox);
         CheckBox sportsCheckBox = findViewById(R.id.search_sports_checkbox);
@@ -30,33 +33,14 @@ public class SearchActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(searchManager.isUserInputCorrect(editText.getText().toString())) {
+                if(searchManager.isUserInputCorrect(editText.getText().toString(), new ArrayList<String>())) {
                     Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
+
                 }else {
                     Toast.makeText(SearchActivity.this, "Not ok", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
-    /*public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.search_arts_checkbox:
-                if (checked) {
-
-                }else
-                break;
-            case R.id.search_politics_checkbox:
-                if (checked) {
-
-                }else
-
-                break;
-        }
-    }*/
 
 }

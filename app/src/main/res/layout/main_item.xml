@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/main_item_iv_thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/image_size"
+        android:layout_height="@dimen/image_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars"

@@ -21,6 +21,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,23 +37,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragments.add(TopStoryFragment.newInstance("business"));
         fragments.add(TopStoryFragment.newInstance("technology"));
 
-        ViewPager viewPager = findViewById(R.id.main_vp);
-        viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), fragments
-        ));
-
-        TabLayout tabs = findViewById(R.id.main_tl);
-        tabs.setupWithViewPager(viewPager);
-        tabs.setTabMode(TabLayout.MODE_FIXED);
-
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.main_navigation_view_menu);
+        final NavigationView navigationView = findViewById(R.id.main_navigation_view_menu);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        viewPager = findViewById(R.id.main_vp);
+        viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), fragments
+        ));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //navigationView.setCheckedItem(R.id.nav_most_popular);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        TabLayout tabs = findViewById(R.id.main_tl);
+        tabs.setupWithViewPager(viewPager);
+        tabs.setTabMode(TabLayout.MODE_FIXED);
+
     }
 
     @Override
@@ -60,15 +79,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_top_story) {
-
+            viewPager.setCurrentItem(0);
         } else if (id == R.id.nav_most_popular) {
-
+            viewPager.setCurrentItem(1);
         } else if (id == R.id.nav_arts) {
-
+            viewPager.setCurrentItem(2);
         } else if (id == R.id.nav_business) {
-
-        }else if (id == R.id.nav_technology) {
-
+            viewPager.setCurrentItem(3);
+        } else if (id == R.id.nav_technology) {
+            viewPager.setCurrentItem(4);
         }
 
         DrawerLayout drawer = findViewById(R.id.main_drawer_layout);

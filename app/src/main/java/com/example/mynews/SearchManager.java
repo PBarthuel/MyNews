@@ -1,9 +1,13 @@
 package com.example.mynews;
 
+import java.util.List;
+
 public class SearchManager {
 
-    public boolean isUserInputCorrect (String userInput) {
-        if (userInput == null || userInput.trim().isEmpty() || userInput.equals("é") || userInput.equals("è") || userInput.equals("à")) {
+    public boolean isUserInputCorrect (String userInput, List<String> sections) {
+        if (userInput == null
+                || userInput.trim().isEmpty()
+                || userInput.contains("à")) {
             return false;
         }
         return true;
