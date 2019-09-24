@@ -20,8 +20,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/cardview_dark_background"
         android:textStyle="bold"
+        app:layout_constraintRight_toLeftOf="@id/main_item_tv_date"
         app:layout_constraintTop_toTopOf="@id/main_item_iv_thumbnail"
         app:layout_constraintLeft_toRightOf="@id/main_item_iv_thumbnail"
         tools:text="Courgette is the best" />
@@ -40,9 +43,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintLeft_toRightOf="@id/main_item_iv_thumbnail"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/main_item_iv_thumbnail"
-        tools:text="Courgette is the best"
+        tools:text="Courgette is the best but carotte is okay too but i love cucumber but it's ok"
         android:textSize="18sp"/>
 
     <TextView

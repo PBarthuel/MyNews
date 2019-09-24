@@ -2,21 +2,19 @@ package com.example.mynews;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import org.threeten.bp.LocalDate;
 
-public class SearchActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class SearchActivity extends AppCompatActivity implements DatePickerDialogFragment.OnDateSelectedListener {
 
     private SearchManager searchManager = new SearchManager();
     private Button selectPastDate;
@@ -55,14 +53,14 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
         selectPastDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+                showDatePickerDialog(true);
             }
         });
 
         selectFuturDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
+                showDatePickerDialog(false);
             }
         });
 
@@ -79,20 +77,22 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
         });
     }
 
-    private void showDatePickerDialog() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
+    private void showDatePickerDialog(boolean isStartDate) {
+        DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment.newInstance(isStartDate, LocalDate.now());
+        datePickerDialogFragment.show(getSupportFragmentManager(), null);
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + month + "/" + year;
-        selectPastDate.setText(date);
-        selectFuturDate.setText(date);
+    public void onDateSelected(LocalDate localDate, boolean isStartDate) {
+        if(isStartDate) {
+            selectPastDate.setText(localDate.toString());
+        }else {
+            selectFuturDate.setText(localDate.toString());
+
+        }
+    }
+
+    private List<String> getCheckTag (CheckBox checkBox, List<String> tagList) {
+        return tagList;
     }
 }

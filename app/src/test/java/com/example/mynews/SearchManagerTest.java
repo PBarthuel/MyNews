@@ -2,6 +2,8 @@ package com.example.mynews;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -14,7 +16,7 @@ public class SearchManagerTest {
         //Given
         String userInput = null;
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput);
+        boolean result = searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
         assertFalse(result);
     }

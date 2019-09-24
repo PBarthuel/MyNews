@@ -12,4 +12,5 @@ public class SearchManager {
         }
         return true;
     }
+
 }
