@@ -3,7 +3,9 @@ package com.example.mynews;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -12,13 +14,13 @@ public class SearchManagerTest {
     private SearchManager searchManager = new SearchManager();
 
     @Test
-    public void should_return_false_when_user_input_is_null () {
+    public void should_return_input_incorrect_when_user_input_is_null () {
         //Given
         String userInput = null;
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
-        assertFalse(result);
+        assertEquals(SearchInputState.INPUT_INCORRECT, result);
     }
 
     @Test
@@ -26,9 +28,9 @@ public class SearchManagerTest {
         //Given
         String userInput = "";
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput);
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
-        assertFalse(result);
+        assertEquals(SearchInputState.INPUT_INCORRECT, result);
     }
 
     @Test
@@ -36,9 +38,9 @@ public class SearchManagerTest {
         //Given
         String userInput = "\n";
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput);
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
-        assertFalse(result);
+        assertEquals(SearchInputState.INPUT_INCORRECT, result);
     }
 
     @Test
@@ -46,9 +48,9 @@ public class SearchManagerTest {
         //Given
         String userInput = "à";
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput);
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
-        assertFalse(result);
+        assertEquals(SearchInputState.INPUT_INCORRECT, result);
     }
 
     @Test
@@ -56,9 +58,9 @@ public class SearchManagerTest {
         //Given
         String userInput = "è";
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput);
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
-        assertTrue(result);
+        assertEquals(SearchInputState.INPUT_INCORRECT, result);
     }
 
     @Test
@@ -66,18 +68,41 @@ public class SearchManagerTest {
         //Given
         String userInput = "é";
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput);
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
-        assertTrue(result);
+        assertEquals(SearchInputState.INPUT_INCORRECT, result);
     }
 
     @Test
-    public void should_return_true_when_user_input_is_courgette () {
+    public void should_return_input_incorrect_when_user_input_is_courgette () {
         //Given
         String userInput = "courgette";
         //When
-        boolean result = searchManager.isUserInputCorrect(userInput);
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>());
         //Then
-        assertTrue(result);
+        assertEquals(SearchInputState.INPUT_INCORRECT, result);
+    }
+
+    @Test
+    public void should_return_ok_when_one_sections_is_selected () {
+        //Given
+        String userInput = "courgette";
+        List<String> sections = new ArrayList<>();
+        sections.add("science");
+        //When
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, sections);
+        //Then
+        assertEquals(SearchInputState.OK, result);
+    }
+
+    @Test
+    public void should_return_no_sections_selected_when_no_sections_are_selected () {
+        //Given
+        String userInput = "courgette";
+        List<String> sections = new ArrayList<>();
+        //When
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, sections);
+        //Then
+        assertEquals(SearchInputState.NO_SECTIONS_SELECTED, result);
     }
 }

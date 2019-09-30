@@ -1,13 +1,13 @@
 package com.example.mynews;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.threeten.bp.LocalDate;
 
@@ -67,11 +67,16 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(searchManager.isUserInputCorrect(editText.getText().toString(), new ArrayList<String>())) {
-                    Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
-
-                }else {
-                    Toast.makeText(SearchActivity.this, "Not ok", Toast.LENGTH_SHORT).show();
+                switch (searchManager.isUserInputCorrect(editText.getText().toString(), new ArrayList<String>())) {
+                    case OK:
+                        Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
+                        break;
+                    case INPUT_INCORRECT:
+                        Toast.makeText(SearchActivity.this, "Input isn't ok", Toast.LENGTH_SHORT).show();
+                        break;
+                    case NO_SECTIONS_SELECTED:
+                        Toast.makeText(SearchActivity.this, "You must select at least one section", Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         });
@@ -84,15 +89,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
     @Override
     public void onDateSelected(LocalDate localDate, boolean isStartDate) {
-        if(isStartDate) {
+        if (isStartDate) {
             selectPastDate.setText(localDate.toString());
-        }else {
+        } else {
             selectFuturDate.setText(localDate.toString());
 
         }
     }
 
-    private List<String> getCheckTag (CheckBox checkBox, List<String> tagList) {
+    private List<String> getCheckTag(CheckBox checkBox, List<String> tagList) {
         return tagList;
     }
 }
