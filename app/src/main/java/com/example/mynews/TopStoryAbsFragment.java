@@ -16,6 +16,9 @@ import com.example.mynews.model.data.TopStoryArticle;
 import com.example.mynews.model.data.TopStoryResult;
 import com.example.mynews.model.ui.Article;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,11 +72,26 @@ public abstract class TopStoryAbsFragment extends NamedFragment implements Artic
             }
 
             String title = article.getTitle();
-            String topic = article.getSection();//TODO intelligence pour choisir meilleur topic
-            String date = article.getPublishedDate();//TODO pareil
+
+            String topic = article.getSection();
+            String subTopic = article.getSubsection();
+            String displayedTopic = null;
+
+            if(topic != null && !topic.isEmpty() && subTopic != null && !subTopic.isEmpty()) {
+                displayedTopic = topic + " > " + subTopic;
+            }else if(topic != null && !topic.isEmpty()) {
+                displayedTopic = topic;
+            }else if(subTopic != null && !subTopic.isEmpty()) {
+                displayedTopic = subTopic;
+            }
+
+            String nonHumanDate = article.getPublishedDate();
+            LocalDate date = LocalDate.parse(nonHumanDate, DateTimeFormatter.ISO_ZONED_DATE_TIME);
+            String humanDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
             String url = article.getUrl();
 
-            result.add(new Article(imageUrl, title, topic, date, url));
+            result.add(new Article(imageUrl, title, displayedTopic, humanDate, url));
         }
         return result;
     }
