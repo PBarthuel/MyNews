@@ -67,7 +67,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (searchManager.isUserInputCorrect(editText.getText().toString(), new ArrayList<String>())) {
+                switch (searchManager.isUserInputCorrect(editText.getText().toString(), new ArrayList<String>(), null, null)) {
                     case OK:
                         Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
                         break;
