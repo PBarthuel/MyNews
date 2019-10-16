@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class SearchManagerTest {
 
@@ -29,7 +27,7 @@ public class SearchManagerTest {
     }
 
     @Test
-    public void should_return_date_is_incorrect_when_end_date_is_after_begin_date () {
+    public void should_return_date_is_incorrect_when_end_date_is_before_begin_date () {
         //Given
         String userInput = "courgette";
         List<String> sections = new ArrayList<>();
@@ -104,7 +102,7 @@ public class SearchManagerTest {
     }
 
     @Test
-    public void should_return_false_when_user_input_is_empty () {
+    public void should_return_input_incorrect_when_user_input_is_empty () {
         //Given
         String userInput = "";
         //When
@@ -114,7 +112,7 @@ public class SearchManagerTest {
     }
 
     @Test
-    public void should_return_false_when_user_input_is_blank_characters () {
+    public void should_return_input_incorrect_when_user_input_is_blank_characters () {
         //Given
         String userInput = "\n";
         //When
@@ -139,8 +137,9 @@ public class SearchManagerTest {
     public void should_return_no_section_selected_when_user_input_is_correct_but_no_section_selected () {
         //Given
         String userInput = "courgette";
+        List<String> sections = new ArrayList<>();
         //When
-        SearchInputState result= searchManager.isUserInputCorrect(userInput, new ArrayList<String>(), null, null);
+        SearchInputState result= searchManager.isUserInputCorrect(userInput, sections, null, null);
         //Then
         assertEquals(SearchInputState.NO_SECTIONS_SELECTED, result);
     }

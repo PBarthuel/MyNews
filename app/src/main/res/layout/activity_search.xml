@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_et_user"
+        app:layout_constraintEnd_toEndOf="@id/search_guide_line_half"
         android:layout_margin="24dp"
         android:drawableEnd="@drawable/ic_search_white_24dp"/>
 
@@ -36,8 +37,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/search_guide_line_half"
         app:layout_constraintTop_toBottomOf="@id/search_et_user"
-        android:layout_margin="24dp" />
+        android:layout_margin="24dp"
+        android:drawableEnd="@drawable/ic_search_white_24dp" />
 
     <CheckBox
         android:id="@+id/search_arts_checkbox"

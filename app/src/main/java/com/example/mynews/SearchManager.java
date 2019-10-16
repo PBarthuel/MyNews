@@ -1,7 +1,5 @@
 package com.example.mynews;
 
-import android.os.LocaleList;
-
 import androidx.annotation.Nullable;
 
 import org.threeten.bp.LocalDate;
@@ -14,11 +12,11 @@ public class SearchManager {
         if (userInput == null
                 || userInput.trim().isEmpty()) {
             return SearchInputState.INPUT_INCORRECT;
-        }else if (sections.isEmpty()) {
+        } else if (sections.isEmpty()) {
             return SearchInputState.NO_SECTIONS_SELECTED;
-        }else if (beginDate != null && endDate != null && beginDate.isAfter(endDate)) {
+        } else if (beginDate != null && endDate != null && beginDate.isAfter(endDate)) {
             return SearchInputState.DATE_IS_INCORRECT;
-        }else if (beginDate != null && beginDate.isAfter(LocalDate.now())) {
+        } else if (beginDate != null && beginDate.isAfter(LocalDate.now())) {
             return SearchInputState.BEGIN_DATE_IS_IN_THE_FUTURE;
         }
         return SearchInputState.OK;

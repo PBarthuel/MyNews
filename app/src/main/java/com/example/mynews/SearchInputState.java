@@ -6,5 +6,4 @@ public enum SearchInputState {
     DATE_IS_INCORRECT,
     BEGIN_DATE_IS_IN_THE_FUTURE,
     OK
-
 }
