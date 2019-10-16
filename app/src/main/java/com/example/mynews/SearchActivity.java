@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +76,13 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (searchManager.isUserInputCorrect(editText.getText().toString(), getCheckTagList(tagList), null, null)) {
+                switch (searchManager.isUserInputCorrect(editText.getText().toString(),
+                        getCheckTagList(tagList),
+                        selectPastDate.getText().toString() ,
+                        selectFutureDate.getText().toString())) {
                     case OK:
                         Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
+                        startActivity(SearchResultActivity.navigate(SearchActivity.this, editText.getText().toString()));
                         break;
                     case INPUT_INCORRECT:
                         Toast.makeText(SearchActivity.this, "Input isn't ok", Toast.LENGTH_SHORT).show();
@@ -103,9 +108,9 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
     @Override
     public void onDateSelected(LocalDate localDate, boolean isStartDate) {
         if (isStartDate) {
-            selectPastDate.setText(localDate.toString());
+            selectPastDate.setText(localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         } else {
-            selectFutureDate.setText(localDate.toString());
+            selectFutureDate.setText(localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         }
     }
 
