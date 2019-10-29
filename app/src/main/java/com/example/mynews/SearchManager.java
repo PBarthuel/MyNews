@@ -15,14 +15,14 @@ public class SearchManager {
                                                @NonNull String endDate) {
 
         LocalDate beginLocalDate;
-        if (beginDate.isEmpty()) {
+        if (!beginDate.isEmpty()) {
             beginLocalDate = LocalDate.parse(beginDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
             beginLocalDate = null;
         }
 
         LocalDate endLocalDate;
-        if (endDate.isEmpty()) {
+        if (!endDate.isEmpty()) {
             endLocalDate =
                     LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         }else {

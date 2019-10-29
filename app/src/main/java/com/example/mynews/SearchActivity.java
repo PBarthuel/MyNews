@@ -20,12 +20,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
     private SearchManager searchManager = new SearchManager();
     private Button selectPastDate;
     private Button selectFutureDate;
-    private CheckBox artsCheckBox;
-    private CheckBox politicsCheckBox;
-    private CheckBox businessCheckBox;
-    private CheckBox sportsCheckBox;
-    private CheckBox entrepreneursCheckBox;
-    private CheckBox travelCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,27 +31,9 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
         Button button = findViewById(R.id.search_btn_launch_search);
 
-        final List<String> tagList = new ArrayList<>();
+        final SectionsCustomView sectionsCustomView = findViewById(R.id.cv_search_checkbox);
 
         final EditText editText = findViewById(R.id.search_et_user);
-
-        artsCheckBox = findViewById(R.id.search_arts_checkbox);
-        artsCheckBox.setTag("arts");
-
-        politicsCheckBox = findViewById(R.id.search_politics_checkbox);
-        politicsCheckBox.setTag("politics");
-
-        businessCheckBox = findViewById(R.id.search_business_checkbox);
-        businessCheckBox.setTag("buisness");
-
-        sportsCheckBox = findViewById(R.id.search_sports_checkbox);
-        sportsCheckBox.setTag("sports");
-
-        entrepreneursCheckBox = findViewById(R.id.search_entrepreneurs_checkbox);
-        entrepreneursCheckBox.setTag("entrepreneurs");
-
-        travelCheckBox = findViewById(R.id.search_travel_checkbox);
-        travelCheckBox.setTag("travel");
 
         selectPastDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +53,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View v) {
                 switch (searchManager.isUserInputCorrect(editText.getText().toString(),
-                        getCheckTagList(tagList),
+                        sectionsCustomView.getSectionsSelected(),
                         selectPastDate.getText().toString() ,
                         selectFutureDate.getText().toString())) {
                     case OK:
@@ -112,46 +88,5 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
         } else {
             selectFutureDate.setText(localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         }
-    }
-
-    private List<String> getCheckTagList(List<String> tagList) {
-
-        if (artsCheckBox.isChecked()) {
-            tagList.add(artsCheckBox.getTag().toString());
-        }else {
-            tagList.remove(artsCheckBox.getTag().toString());
-        }
-
-        if (politicsCheckBox.isChecked()) {
-            tagList.add(politicsCheckBox.getTag().toString());
-        }else {
-            tagList.remove(politicsCheckBox.getTag().toString());
-        }
-
-        if (businessCheckBox.isChecked()) {
-            tagList.add(businessCheckBox.getTag().toString());
-        }else {
-            tagList.remove(businessCheckBox.getTag().toString());
-        }
-
-        if (sportsCheckBox.isChecked()) {
-            tagList.add(sportsCheckBox.getTag().toString());
-        }else {
-            tagList.remove(sportsCheckBox.getTag().toString());
-        }
-
-        if (entrepreneursCheckBox.isChecked()) {
-            tagList.add(entrepreneursCheckBox.getTag().toString());
-        }else {
-            tagList.remove(entrepreneursCheckBox.getTag().toString());
-        }
-
-        if (travelCheckBox.isChecked()) {
-            tagList.add(travelCheckBox.getTag().toString());
-        }else {
-            tagList.remove(travelCheckBox.getTag().toString());
-        }
-
-        return tagList;
     }
 }

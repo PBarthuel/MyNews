@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv_guide_line_half"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <CheckBox
+        android:id="@+id/cv_arts_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/arts_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cv_politics_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/politics_checkbox"
+        app:layout_constraintStart_toStartOf="@id/cv_guide_line_half"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cv_business_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/business_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_arts_checkbox" />
+
+    <CheckBox
+        android:id="@+id/cv_sports_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/sports_checkbox"
+        app:layout_constraintStart_toStartOf="@id/cv_guide_line_half"
+        app:layout_constraintTop_toBottomOf="@+id/cv_politics_checkbox" />
+
+    <CheckBox
+        android:id="@+id/cv_entrepreneurs_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/entrepreneurs_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_business_checkbox" />
+
+    <CheckBox
+        android:id="@+id/cv_travel_checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/travel_checkbox"
+        app:layout_constraintStart_toStartOf="@id/cv_guide_line_half"
+        app:layout_constraintTop_toBottomOf="@+id/cv_sports_checkbox" />
+
+</merge>
