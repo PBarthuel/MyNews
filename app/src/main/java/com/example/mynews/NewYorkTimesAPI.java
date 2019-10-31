@@ -18,5 +18,5 @@ public interface NewYorkTimesAPI {
     Call<MostPopularResult> getMostPopularStory();
 
     @GET("svc/search/v2/articlesearch.json")
-    Call<SearchResult> getSearchResponse(@Query("fq") String filteredQuery);
+    Call<SearchResult> getSearchResponse(@Query("q") String filteredQuery); //TODO remettre fq quand lucene
 }
