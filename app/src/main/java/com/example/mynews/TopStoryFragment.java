@@ -5,11 +5,14 @@ import android.os.Bundle;
 public class TopStoryFragment extends TopStoryAbsFragment {
 
     private static final String KEY_SECTION = "KEY_SECTION";
+    private static final String KEY_SECTION_TITLE = "KEY_SECTION_TITLE";
 
-    public static TopStoryFragment newInstance (String sectionName) {
+
+    public static TopStoryFragment newInstance (String sectionName, String sectionTitle) {
 
         Bundle args = new Bundle();
         args.putString(KEY_SECTION, sectionName);
+        args.putString(KEY_SECTION_TITLE, sectionTitle);
 
         TopStoryFragment fragment = new TopStoryFragment();
         fragment.setArguments(args);
@@ -23,6 +26,6 @@ public class TopStoryFragment extends TopStoryAbsFragment {
 
     @Override
     String getTitle() {
-        return getArguments().getString(KEY_SECTION);
+        return getArguments().getString(KEY_SECTION_TITLE);
     }
 }

@@ -77,4 +77,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notification_entrepreneurs_checkbox"
+        android:layout_margin="24dp"
+        android:text="Enable notification (once per day)" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

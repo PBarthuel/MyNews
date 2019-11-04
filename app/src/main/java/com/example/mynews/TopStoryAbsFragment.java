@@ -45,8 +45,10 @@ public abstract class TopStoryAbsFragment extends NamedFragment implements Artic
         callTopStory = service.getTopStory(getSectionName());
         callTopStory.enqueue(new Callback<TopStoryResult>() {
             @Override
-            public void onResponse(Call<TopStoryResult> call, Response<TopStoryResult> response) {
-                articleAdapter.setNewData(map(response.body().getTopStoryArticles()));
+            public void onResponse(Call<TopStoryResult> call,@NonNull Response<TopStoryResult> response) {
+                if (response.body() != null && response.body().getTopStoryArticles() != null) {
+                    articleAdapter.setNewData(map(response.body().getTopStoryArticles()));
+                }
             }
 
             @Override

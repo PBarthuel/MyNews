@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         List<NamedFragment> fragments = new ArrayList<>();
 
-        fragments.add(TopStoryFragment.newInstance("home"));
+        fragments.add(TopStoryFragment.newInstance("home", getString(R.string.menu_top_story)));
         fragments.add(new MostPopularFragment());
-        fragments.add(TopStoryFragment.newInstance("arts"));
-        fragments.add(TopStoryFragment.newInstance("business"));
-        fragments.add(TopStoryFragment.newInstance("technology"));
+        fragments.add(TopStoryFragment.newInstance("arts", getString(R.string.menu_arts)));
+        fragments.add(TopStoryFragment.newInstance("business", getString(R.string.menu_business)));
+        fragments.add(TopStoryFragment.newInstance("technology", getString(R.string.menu_technology)));
 
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
@@ -58,7 +58,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onPageSelected(int position) {
-                //navigationView.setCheckedItem(R.id.nav_most_popular);
+                int menuItemId = 0;
+                switch (position) {
+                    case 0 :
+                        menuItemId = R.id.nav_top_story;
+                        break;
+                    case 1 :
+                        menuItemId = R.id.nav_most_popular;
+                        break;
+                    case 2 :
+                        menuItemId = R.id.nav_arts;
+                        break;
+                    case 3 :
+                        menuItemId = R.id.nav_business;
+                        break;
+                    case 4 :
+                        menuItemId = R.id.nav_technology;
+                        break;
+                }
+                navigationView.setCheckedItem(menuItemId);
             }
 
             @Override
@@ -66,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+        navigationView.setCheckedItem(R.id.nav_top_story);
 
         TabLayout tabs = findViewById(R.id.main_tl);
         tabs.setupWithViewPager(viewPager);
