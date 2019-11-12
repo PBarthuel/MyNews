@@ -25,5 +25,6 @@
     <string name="menu_technology">Technology</string>
     <string name="menu_business">Business</string>
     <string name="no_result">No result</string>
+    <string name="enable_notification_once_per_day">Enable notification (once per day)</string>
 
 </resources>

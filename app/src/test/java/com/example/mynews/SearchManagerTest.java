@@ -1,7 +1,6 @@
 package com.example.mynews;
 
 import org.junit.Test;
-import org.threeten.bp.String;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,8 @@ public class SearchManagerTest {
         assertEquals(SearchInputState.OK, result);
     }
 
-    /*@Test
+    /*
+    @Test
     public void should_return_date_is_incorrect_when_end_date_is_before_begin_date () {
         //Given
         String userInput = "courgette";
@@ -153,6 +153,5 @@ public class SearchManagerTest {
         SearchInputState result= searchManager.isUserInputCorrect(userInput, sections, null, null);
         //Then
         assertEquals(SearchInputState.NO_SECTIONS_SELECTED, result);
-    }
-*/
+    } */
 }

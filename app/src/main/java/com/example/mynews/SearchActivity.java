@@ -3,7 +3,6 @@ package com.example.mynews;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -11,9 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SearchActivity extends AppCompatActivity implements DatePickerDialogFragment.OnDateSelectedListener {
 
@@ -31,7 +27,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
         Button button = findViewById(R.id.search_btn_launch_search);
 
-        final SectionsCustomView sectionsCustomView = findViewById(R.id.cv_search_checkbox);
+        final SectionsCustomView sectionsCustomViewSearch = findViewById(R.id.cv_search_checkbox);
 
         final EditText editText = findViewById(R.id.search_et_user);
 
@@ -53,8 +49,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View v) {
                 switch (searchManager.isUserInputCorrect(editText.getText().toString(),
-                        sectionsCustomView.getSectionsSelected(),
-                        selectPastDate.getText().toString() ,
+                        sectionsCustomViewSearch.getSectionsSelected(),
+                        selectPastDate.getText().toString(),
                         selectFutureDate.getText().toString())) {
                     case OK:
                         Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
