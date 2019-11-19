@@ -153,5 +153,61 @@ public class SearchManagerTest {
         SearchInputState result= searchManager.isUserInputCorrect(userInput, sections, null, null);
         //Then
         assertEquals(SearchInputState.NO_SECTIONS_SELECTED, result);
-    } */
+    }*/
+
+    @Test
+    public void should_return_good_lucene_for_one_key_word () {
+        //Given
+        String keyWord = "Trump";
+        //when
+        String result = searchManager.getLucene(keyWord, null);
+        //Then
+        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\"))", result);
+    }
+
+    @Test
+    public void should_return_good_lucene_for_no_key_word () {
+        //Given
+        String keyWord = "";
+        //when
+        String result = searchManager.getLucene(keyWord, null);
+        //Then
+        assertEquals("(body:(\"\") OR headline:(\"\") OR byline:(\"\"))", result);
+    }
+
+    @Test
+    public void should_return_good_lucene_for_one_key_word_no_section () {
+        //Given
+        String keyWord = "Trump";
+        List<String> sections = new ArrayList<>();
+        //when
+        String result = searchManager.getLucene(keyWord, sections);
+        //Then
+        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\"))", result);
+    }
+
+    @Test
+    public void should_return_good_lucene_for_one_key_word_one_section () {
+        //Given
+        String keyWord = "Trump";
+        List<String> sections = new ArrayList<>();
+        sections.add("Sports");
+        //when
+        String result = searchManager.getLucene(keyWord, sections);
+        //Then
+        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\")) AND section_name:(\"Sports\")", result);
+    }
+
+    @Test
+    public void should_return_good_lucene_for_one_key_word_txo_section () {
+        //Given
+        String keyWord = "Trump";
+        List<String> sections = new ArrayList<>();
+        sections.add("Sports");
+        sections.add("Arts");
+        //when
+        String result = searchManager.getLucene(keyWord, sections);
+        //Then
+        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\")) AND section_name:(\"Sports\" \"Arts\")", result);
+    }
 }

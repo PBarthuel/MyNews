@@ -9,6 +9,8 @@ import java.util.List;
 
 public class SearchManager {
 
+    private static final String DEFAULT_LUCENE = "(body:(\"%1$s\") OR headline:(\"%1$s\") OR byline:(\"%1$s\"))";
+
     public SearchInputState isUserInputCorrect(String userInput,
                                                List<String> sections,
                                                @NonNull String beginDate,
@@ -42,4 +44,13 @@ public class SearchManager {
         return SearchInputState.OK;
     }
 
+    public String getLucene (String userInput, List<String> sections) {
+        //We can use stringBuilder too
+
+        String result = String.format(DEFAULT_LUCENE, userInput);
+        if(sections != null && !sections.isEmpty()) {
+            result += " AND section_name:(\"" + sections.get(0) + "\")";
+        }
+        return result;
+    }
 }
