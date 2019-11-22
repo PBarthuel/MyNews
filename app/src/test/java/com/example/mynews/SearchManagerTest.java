@@ -1,6 +1,7 @@
 package com.example.mynews;
 
 import org.junit.Test;
+import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,8 @@ public class SearchManagerTest {
         String userInput = "courgette";
         List<String> sections = new ArrayList<>();
         sections.add("science");
-        String beginDate = String.of(1995, 12, 19);
-        String endDate = String.of(1995, 10, 12);
+        String beginDate = LocalDate.of(1995, 12, 19).toString();
+        String endDate = LocalDate.of(1995, 10, 12).toString();
         //When
         SearchInputState result= searchManager.isUserInputCorrect(userInput, sections, beginDate, endDate);
         //Then
@@ -46,7 +47,7 @@ public class SearchManagerTest {
         String userInput = "courgette";
         List<String> sections = new ArrayList<>();
         sections.add("science");
-        String beginDate = String.now().plusDays(1);
+        String beginDate = LocalDate.now().plusDays(1).toString();
         //When
         SearchInputState result= searchManager.isUserInputCorrect(userInput, sections, beginDate, null);
         //Then
@@ -59,7 +60,7 @@ public class SearchManagerTest {
         String userInput = "courgette";
         List<String> sections = new ArrayList<>();
         sections.add("science");
-        String endDate = String.of(2019, 10, 12);
+        String endDate = LocalDate.of(2019, 10, 12).toString();
         //When
         SearchInputState result= searchManager.isUserInputCorrect(userInput, sections, null, endDate);
         //Then
@@ -72,7 +73,7 @@ public class SearchManagerTest {
         String userInput = "courgette";
         List<String> sections = new ArrayList<>();
         sections.add("science");
-        String beginDate = String.of(1995, 12, 19);
+        String beginDate = LocalDate.of(1995, 12, 19).toString();
         //When
         SearchInputState result= searchManager.isUserInputCorrect(userInput, sections, beginDate, null);
         //Then
@@ -195,7 +196,7 @@ public class SearchManagerTest {
         //when
         String result = searchManager.getLucene(keyWord, sections);
         //Then
-        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\")) AND section_name:(\"Sports\")", result);
+        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\")) AND section_name:( \"Sports\")", result);
     }
 
     @Test
@@ -208,6 +209,6 @@ public class SearchManagerTest {
         //when
         String result = searchManager.getLucene(keyWord, sections);
         //Then
-        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\")) AND section_name:(\"Sports\" \"Arts\")", result);
+        assertEquals("(body:(\"Trump\") OR headline:(\"Trump\") OR byline:(\"Trump\")) AND section_name:( \"Sports\" \"Arts\")", result);
     }
 }

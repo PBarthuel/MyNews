@@ -4,6 +4,8 @@ import com.example.mynews.model.data.MostPopularResult;
 import com.example.mynews.model.data.TopStoryResult;
 import com.example.mynews.model.data.search.SearchResult;
 
+import java.net.URI;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -18,5 +20,5 @@ public interface NewYorkTimesAPI {
     Call<MostPopularResult> getMostPopularStory();
 
     @GET("svc/search/v2/articlesearch.json")
-    Call<SearchResult> getSearchResponse(@Query("fq") String filteredQuery); //TODO remettre fq quand lucene
+    Call<SearchResult> getSearchResponse(@Query(value = "fq") String filteredQuery);
 }

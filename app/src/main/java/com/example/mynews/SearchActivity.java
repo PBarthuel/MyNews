@@ -54,7 +54,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
                         selectFutureDate.getText().toString())) {
                     case OK:
                         Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
-                        startActivity(SearchResultActivity.navigate(SearchActivity.this, editText.getText().toString()));
+                        startActivity(
+                                SearchResultActivity.navigate(
+                                        SearchActivity.this,
+                                        searchManager.getLucene(
+                                                editText.getText().toString(),
+                                                sectionsCustomViewSearch.getSectionsSelected()
+                                        )
+                                )
+                        );
                         break;
                     case INPUT_INCORRECT:
                         Toast.makeText(SearchActivity.this, "Input isn't ok", Toast.LENGTH_SHORT).show();

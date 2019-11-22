@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SearchManager {
 
-    private static final String DEFAULT_LUCENE = "(body:(\"%1$s\") OR headline:(\"%1$s\") OR byline:(\"%1$s\"))";
+    private static final String DEFAULT_LUCENE = "body:(\"%1$s\")";
 
     public SearchInputState isUserInputCorrect(String userInput,
                                                List<String> sections,
@@ -25,9 +25,8 @@ public class SearchManager {
 
         LocalDate endLocalDate;
         if (!endDate.isEmpty()) {
-            endLocalDate =
-                    LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        }else {
+            endLocalDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } else {
             endLocalDate = null;
         }
 
@@ -44,13 +43,18 @@ public class SearchManager {
         return SearchInputState.OK;
     }
 
-    public String getLucene (String userInput, List<String> sections) {
+    public String getLucene(String userInput, List<String> sections) {
         //We can use stringBuilder too
 
-        String result = String.format(DEFAULT_LUCENE, userInput);
-        if(sections != null && !sections.isEmpty()) {
-            result += " AND section_name:(\"" + sections.get(0) + "\")";
+        StringBuilder result = new StringBuilder(String.format(DEFAULT_LUCENE, userInput));
+
+        if (sections != null && !sections.isEmpty()) {
+            result.append(" and section_name:(");
+            for (int i = 0; i < sections.size(); i++) {
+                result.append(" \"").append(sections.get(i)).append("\"");
+            }
+            result.append(")");
         }
-        return result;
+        return result.toString();
     }
 }
