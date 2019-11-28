@@ -74,7 +74,6 @@ public class MostPopularFragment extends NamedFragment implements ArticleAdapter
             String imageUrl = null;
 
             if(article.getMedia() != null && !article.getMedia().isEmpty()) {
-                int minimumPixelSize = getResources().getDimensionPixelSize(R.dimen.image_size);
                 imageUrl = article.getMedia().get(0).getMediaMetadata().get(0).getUrl();
             }
 

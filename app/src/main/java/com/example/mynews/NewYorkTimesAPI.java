@@ -21,4 +21,7 @@ public interface NewYorkTimesAPI {
 
     @GET("svc/search/v2/articlesearch.json")
     Call<SearchResult> getSearchResponse(@Query(value = "fq") String filteredQuery);
+
+    @GET("svc/search/v2/articlesearch.json")
+    Call<SearchResult> getNotificationResponse(@Query(value = "fq") String filteredQuery);
 }

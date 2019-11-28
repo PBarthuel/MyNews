@@ -31,6 +31,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
         final EditText editText = findViewById(R.id.search_et_user);
 
+
         selectPastDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -24,6 +24,7 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
 
         mTextView = findViewById(R.id.et_notification_activity);
+
         final Switch switchNotification = findViewById(R.id.switch_notification_activity);
 
         switchNotification.setOnClickListener(new View.OnClickListener() {
@@ -31,8 +32,8 @@ public class NotificationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (switchNotification.isChecked()) {
                     Calendar c = Calendar.getInstance();
-                    c.set(Calendar.HOUR_OF_DAY, 15);
-                    c.set(Calendar.MINUTE, 31);
+                    c.set(Calendar.HOUR_OF_DAY, 18);
+                    c.set(Calendar.MINUTE, 0);
                     c.set(Calendar.SECOND, 0);
 
                     updateTimeText(c);
