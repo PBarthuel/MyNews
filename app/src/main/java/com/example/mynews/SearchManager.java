@@ -60,20 +60,5 @@ public class SearchManager {
         return result.toString();
     }
 
-    /*public String getDate(String beginDate, String endDate) {
-
-        StringBuilder resultDate = new StringBuilder(DEFAULT_DATE);
-
-        if ((beginDate != null && !beginDate.isEmpty()) || (endDate != null && !endDate.isEmpty()) ) {
-            resultDate.append("&facet=true");
-            if (beginDate != null && !beginDate.isEmpty()) {
-                resultDate.append("&begin_date=").append(beginDate);
-            }
-            if (endDate != null && !endDate.isEmpty()) {
-                resultDate.append("&end_date=").append(endDate);
-            }
-        }
-
-        return resultDate.toString();
-    }*/
+    //TODO faire les getBeginDate et getEndDate pour récupérer les dates a mettre dans la requete
 }

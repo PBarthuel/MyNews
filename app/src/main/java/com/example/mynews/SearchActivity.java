@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
                                                 editText.getText().toString(),
                                                 sectionsCustomViewSearch.getSectionsSelected()
                                         )
-                                )
+                                )//TODO pour récup les date au bon format regarder abp 3.10 avec une localdate.parse pour récupérer les string retransformer en local date la formater et remettre en sting
                         );
                         break;
                     case INPUT_INCORRECT:

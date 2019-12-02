@@ -5,18 +5,24 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class NotificationActivity extends AppCompatActivity {
 
-    TextView mTextView;
+    private TextView mTextView;
+    //TODO regarder les test d'integration via le workmanager et android espresso
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +33,12 @@ public class NotificationActivity extends AppCompatActivity {
 
         final Switch switchNotification = findViewById(R.id.switch_notification_activity);
 
-        switchNotification.setOnClickListener(new View.OnClickListener() {
+        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (switchNotification.isChecked()) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     Calendar c = Calendar.getInstance();
-                    c.set(Calendar.HOUR_OF_DAY, 18);
+                    c.set(Calendar.HOUR_OF_DAY, 18);//TODO utiliser android 3.10 plutot que calendar
                     c.set(Calendar.MINUTE, 0);
                     c.set(Calendar.SECOND, 0);
 
@@ -53,20 +59,23 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void startAlarm(Calendar c) {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
 
-        if (c.before(Calendar.getInstance())) {
-            c.add(Calendar.DATE, 1);
-        }
+        PeriodicWorkRequest saveRequest =
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                        .setConstraints(constraints)
+                        .build();
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        WorkManager.getInstance(this)
+                .enqueue(saveRequest);
+
     }
 
     private void cancelAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
+        Intent intent = new Intent(this, AlertReceiver.class);//TODO regarder via le workmanager comment arreter l'alarme
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         alarmManager.cancel(pendingIntent);
