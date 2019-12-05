@@ -27,9 +27,11 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
     private static final int LOADING = 1;
     private static final int NO_DATA = 2;
 
-    public static Intent navigate(Context context, String userInput) {
+    public static Intent navigate(Context context, String userInput/*, String beginDate, String endDate*/) {
         Intent intent = new Intent(context, SearchResultActivity.class);
         intent.putExtra("courgette", userInput);
+        //intent.putExtra("courgette", beginDate);
+        //intent.putExtra("courgette", endDate);
         return intent;
     }
 
@@ -47,12 +49,16 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
 
         String userInput = getIntent().getStringExtra("courgette");
 
+        String beginDate = getIntent().getStringExtra("courgette");
+
+        String endDate = getIntent().getStringExtra("courgette");
+
         viewFlipper.setDisplayedChild(LOADING);
 
         Log.d("courgette", userInput);
 
         NewYorkTimesAPI api = RetrofitService.getInstance().create(NewYorkTimesAPI.class);
-        api.getSearchResponse(userInput).enqueue(new Callback<SearchResult>() {
+        api.getSearchResponse(userInput/*, beginDate, endDate*/).enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
                 Log.d("courgette", "" + response);

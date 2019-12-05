@@ -31,7 +31,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
 
         final EditText editText = findViewById(R.id.search_et_user);
 
-
         selectPastDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,8 +60,10 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
                                         searchManager.getLucene(
                                                 editText.getText().toString(),
                                                 sectionsCustomViewSearch.getSectionsSelected()
-                                        )
-                                )//TODO pour récup les date au bon format regarder abp 3.10 avec une localdate.parse pour récupérer les string retransformer en local date la formater et remettre en sting
+                                        )/*,
+                                        searchManager.getBeginDate(selectPastDate.getText().toString()),
+                                        searchManager.getEndDate(selectFutureDate.getText().toString())*/
+                                )
                         );
                         break;
                     case INPUT_INCORRECT:

@@ -8,23 +8,22 @@ import java.util.List;
 public class SearchManager {
 
     private static final String DEFAULT_LUCENE = "(body:(\"%1$s\") OR headline:(\"%1$s\") OR byline:(\"%1$s\"))";
-    //private static final String DEFAULT_DATE = "&facet_field=day_of_week&facet=true&begin_date=%1$s&end_date=%1$s";
 
     public SearchInputState isUserInputCorrect(String userInput,
                                                List<String> sections,
-                                               String beginDate,
-                                               String endDate) {
+                                               String pastDate,
+                                               String futureDate) {
 
         LocalDate beginLocalDate;
-        if (!beginDate.isEmpty()) {
-            beginLocalDate = LocalDate.parse(beginDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if (!pastDate.isEmpty()) {
+            beginLocalDate = LocalDate.parse(pastDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
             beginLocalDate = null;
         }
 
         LocalDate endLocalDate;
-        if (!endDate.isEmpty()) {
-            endLocalDate = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if (!futureDate.isEmpty()) {
+            endLocalDate = LocalDate.parse(futureDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
             endLocalDate = null;
         }
@@ -45,20 +44,41 @@ public class SearchManager {
 
     public String getLucene(String userInput, List<String> sections) {
 
-        StringBuilder result = new StringBuilder(String.format(DEFAULT_LUCENE, userInput));
+        StringBuilder resultLucene = new StringBuilder(String.format(DEFAULT_LUCENE, userInput));
 
         if (sections != null && !sections.isEmpty()) {
-            result.append(" AND section_name:(");
+            resultLucene.append(" AND section_name:(");
             for (int i = 0; i < sections.size(); i++) {
-                result.append(" \"").append(sections.get(i)).append("\"");
+                resultLucene.append(" \"").append(sections.get(i)).append("\"");
             }
 
-            result.append(")");
+            resultLucene.append(")");
 
 
         }
-        return result.toString();
+        return resultLucene.toString();
     }
 
+    /*public String getBeginDate(String humanBeginDate) {
+
+        if (humanBeginDate != null && !humanBeginDate.isEmpty()) {
+            LocalDate date = LocalDate.parse(humanBeginDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String beginDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            return beginDate;
+        } else {
+            return null;
+    }
+    }
+
+    public String getEndDate(String humanEndDate) {
+
+        if (humanEndDate != null && !humanEndDate.isEmpty()) {
+            LocalDate date = LocalDate.parse(humanEndDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String endDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            return endDate;
+        }else {
+            return null;
+        }
+    }*/
     //TODO faire les getBeginDate et getEndDate pour récupérer les dates a mettre dans la requete
 }

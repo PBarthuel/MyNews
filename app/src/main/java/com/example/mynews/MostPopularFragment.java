@@ -93,7 +93,7 @@ public class MostPopularFragment extends NamedFragment implements ArticleAdapter
 
 
             String nonHumanDate = article.getPublishedDate();
-            LocalDate date = LocalDate.parse(nonHumanDate, DateTimeFormatter.ISO_DATE);
+            LocalDate date = LocalDate.parse(nonHumanDate, DateTimeFormatter.ISO_LOCAL_DATE);
             String humanDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
             String url = article.getUrl();
