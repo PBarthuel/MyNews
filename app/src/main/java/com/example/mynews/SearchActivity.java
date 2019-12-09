@@ -60,9 +60,9 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
                                         searchManager.getLucene(
                                                 editText.getText().toString(),
                                                 sectionsCustomViewSearch.getSectionsSelected()
-                                        )/*,
+                                        ),
                                         searchManager.getBeginDate(selectPastDate.getText().toString()),
-                                        searchManager.getEndDate(selectFutureDate.getText().toString())*/
+                                        searchManager.getEndDate(selectFutureDate.getText().toString())
                                 )
                         );
                         break;

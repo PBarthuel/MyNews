@@ -18,8 +18,8 @@ public interface NewYorkTimesAPI {
     Call<MostPopularResult> getMostPopularStory();
 
     @GET("svc/search/v2/articlesearch.json")
-    Call<SearchResult> getSearchResponse(@Query(value = "fq") String filteredQuery/*,
+    Call<SearchResult> getSearchResponse(@Query(value = "fq") String filteredQuery,
                                          @Query(value = "beginDate") String beginDate,
-                                         @Query(value = "endDate") String endDate*/);
+                                         @Query(value = "endDate") String endDate);
 
 }

@@ -59,12 +59,11 @@ public class SearchManager {
         return resultLucene.toString();
     }
 
-    /*public String getBeginDate(String humanBeginDate) {
+    public String getBeginDate(String humanBeginDate) {
 
         if (humanBeginDate != null && !humanBeginDate.isEmpty()) {
             LocalDate date = LocalDate.parse(humanBeginDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String beginDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-            return beginDate;
+            return date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         } else {
             return null;
     }
@@ -79,6 +78,6 @@ public class SearchManager {
         }else {
             return null;
         }
-    }*/
-    //TODO faire les getBeginDate et getEndDate pour récupérer les dates a mettre dans la requete
+    }
+    //TODO faire une seule methode
 }

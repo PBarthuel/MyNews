@@ -27,11 +27,11 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
     private static final int LOADING = 1;
     private static final int NO_DATA = 2;
 
-    public static Intent navigate(Context context, String userInput/*, String beginDate, String endDate*/) {
+    public static Intent navigate(Context context, String userInput, String beginDate, String endDate) {
         Intent intent = new Intent(context, SearchResultActivity.class);
-        intent.putExtra("courgette", userInput);
-        //intent.putExtra("courgette", beginDate);
-        //intent.putExtra("courgette", endDate);
+        intent.putExtra("USER_INPUT", userInput);
+        intent.putExtra("BEGIN_DATE", beginDate);
+        intent.putExtra("END_DATE", endDate);
         return intent;
     }
 
@@ -47,18 +47,18 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
         recyclerView.setAdapter(articleAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String userInput = getIntent().getStringExtra("courgette");
+        String userInput = getIntent().getStringExtra("USER_INPUT");
 
-        String beginDate = getIntent().getStringExtra("courgette");
+        String beginDate = getIntent().getStringExtra("BEGIN_DATE");
 
-        String endDate = getIntent().getStringExtra("courgette");
+        String endDate = getIntent().getStringExtra("END_DATE");
 
         viewFlipper.setDisplayedChild(LOADING);
 
         Log.d("courgette", userInput);
 
         NewYorkTimesAPI api = RetrofitService.getInstance().create(NewYorkTimesAPI.class);
-        api.getSearchResponse(userInput/*, beginDate, endDate*/).enqueue(new Callback<SearchResult>() {
+        api.getSearchResponse(userInput, beginDate, endDate).enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
                 Log.d("courgette", "" + response);
@@ -83,7 +83,7 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
                 String imageUrl = null;
 
                 if (docs.multimedia != null && !docs.multimedia.isEmpty()) {
-                    imageUrl = docs.multimedia.get(0).url;
+                    imageUrl = "https://static01.nyt.com/" + docs.multimedia.get(0).url;
                 }
 
                 Article article = new Article(imageUrl, docs.headline.printHeadline, docs.snippet, docs.pubDate, docs.webUrl);

@@ -35,10 +35,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:drawableEnd="@drawable/dropdown_arrow"
+        android:drawableRight="@drawable/dropdown_arrow"
         app:layout_constraintEnd_toEndOf="@id/search_guide_line_half"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_search"
         style="@style/ClickableEditText"/>
+
+    <!--TODO RETIRER DRAWABLE RIGHT -->
 
     <Button
         android:id="@+id/futurdate_tv"
@@ -46,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:drawableEnd="@drawable/dropdown_arrow"
+        android:drawableRight="@drawable/dropdown_arrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/search_guide_line_half"
         app:layout_constraintTop_toBottomOf="@id/til_search" />
