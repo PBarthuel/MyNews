@@ -1,6 +1,5 @@
 package com.example.mynews;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.EditText;

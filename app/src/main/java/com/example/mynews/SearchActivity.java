@@ -61,8 +61,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
                                                 editText.getText().toString(),
                                                 sectionsCustomViewSearch.getSectionsSelected()
                                         ),
-                                        searchManager.getBeginDate(selectPastDate.getText().toString()),
-                                        searchManager.getEndDate(selectFutureDate.getText().toString())
+                                        searchManager.getFormattedDate(selectPastDate.getText().toString()),
+                                        searchManager.getFormattedDate(selectFutureDate.getText().toString())
                                 )
                         );
                         break;

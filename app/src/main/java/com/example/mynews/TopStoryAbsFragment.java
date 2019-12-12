@@ -45,14 +45,14 @@ public abstract class TopStoryAbsFragment extends NamedFragment implements Artic
         callTopStory = service.getTopStory(getSectionName());
         callTopStory.enqueue(new Callback<TopStoryResult>() {
             @Override
-            public void onResponse(Call<TopStoryResult> call,@NonNull Response<TopStoryResult> response) {
+            public void onResponse(@NonNull Call<TopStoryResult> call, @NonNull Response<TopStoryResult> response) {
                 if (response.body() != null && response.body().getTopStoryArticles() != null) {
                     articleAdapter.setNewData(map(response.body().getTopStoryArticles()));
                 }
             }
 
             @Override
-            public void onFailure(Call<TopStoryResult> call, Throwable t) {
+            public void onFailure(@NonNull Call<TopStoryResult> call,@NonNull Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -79,11 +79,11 @@ public abstract class TopStoryAbsFragment extends NamedFragment implements Artic
             String subTopic = article.getSubsection();
             String displayedTopic = null;
 
-            if(topic != null && !topic.isEmpty() && subTopic != null && !subTopic.isEmpty()) {
+            if (topic != null && !topic.isEmpty() && subTopic != null && !subTopic.isEmpty()) {
                 displayedTopic = topic + " > " + subTopic;
-            }else if(topic != null && !topic.isEmpty()) {
+            } else if (topic != null && !topic.isEmpty()) {
                 displayedTopic = topic;
-            }else if(subTopic != null && !subTopic.isEmpty()) {
+            } else if (subTopic != null && !subTopic.isEmpty()) {
                 displayedTopic = subTopic;
             }
 

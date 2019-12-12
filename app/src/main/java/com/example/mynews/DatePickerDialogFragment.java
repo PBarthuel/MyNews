@@ -32,8 +32,7 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         LocalDate localDate = (LocalDate) getArguments().getSerializable(INITIAL_DATE);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), this, localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfYear());
-        return datePickerDialog;
+        return new DatePickerDialog(requireContext(), this, localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfYear());
     }
 
     @Override

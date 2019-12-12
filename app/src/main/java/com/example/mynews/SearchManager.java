@@ -59,25 +59,13 @@ public class SearchManager {
         return resultLucene.toString();
     }
 
-    public String getBeginDate(String humanBeginDate) {
+    public String getFormattedDate(String formattedDate) {
 
-        if (humanBeginDate != null && !humanBeginDate.isEmpty()) {
-            LocalDate date = LocalDate.parse(humanBeginDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if (formattedDate != null && !formattedDate.isEmpty()) {
+            LocalDate date = LocalDate.parse(formattedDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             return date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         } else {
             return null;
-    }
-    }
-
-    public String getEndDate(String humanEndDate) {
-
-        if (humanEndDate != null && !humanEndDate.isEmpty()) {
-            LocalDate date = LocalDate.parse(humanEndDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String endDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-            return endDate;
-        }else {
-            return null;
         }
     }
-    //TODO faire une seule methode
 }

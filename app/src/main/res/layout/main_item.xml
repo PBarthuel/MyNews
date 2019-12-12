@@ -27,7 +27,8 @@
         app:layout_constraintRight_toLeftOf="@id/main_item_tv_date"
         app:layout_constraintTop_toTopOf="@id/main_item_iv_thumbnail"
         app:layout_constraintLeft_toRightOf="@id/main_item_iv_thumbnail"
-        tools:text="Courgette is the best" />
+        tools:text="Courgette is the best"
+        tools:ignore="PrivateResource" />
 
     <TextView
         android:id="@+id/main_item_tv_date"

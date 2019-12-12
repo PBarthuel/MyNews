@@ -2,11 +2,13 @@ package com.example.mynews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -95,6 +97,12 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
 
     @Override
     public void onArticleClick(Article article) {
-
+        // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        // set toolbar color and/or setting custom actions before invoking build()
+        // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+        CustomTabsIntent customTabsIntent = builder.build();
+        // and launch the desired Url with CustomTabsIntent.launchUrl()
+        customTabsIntent.launchUrl(this, Uri.parse(article.getUrl()));
     }
 }
