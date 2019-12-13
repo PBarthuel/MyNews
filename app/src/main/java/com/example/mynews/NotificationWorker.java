@@ -7,11 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.mynews.model.data.search.SearchResult;
+
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.ChronoUnit;
 
 import java.io.IOException;
+
+import retrofit2.Response;
 
 public class NotificationWorker extends Worker {
 
@@ -22,17 +26,17 @@ public class NotificationWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String userInput = getInputData().getString("USER_INPUT");
+        String userInput = getInputData().getString(NotificationActivity.KEY_USER_INPUT);
         NewYorkTimesAPI api = RetrofitService.getInstance().create(NewYorkTimesAPI.class);
         try {
-            api.getSearchResponse(userInput,
-                    LocalDate.now().minus(1, ChronoUnit.DAYS).format(DateTimeFormatter.ofPattern("yyyyMMdd")),
-                    LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))).execute();
+            Response <SearchResult> result = api.getSearchResponse(userInput,
+                    null,
+                    null).execute();
+                    //result.body().response.meta.hits;
             Log.i("call", "succes");
         } catch (IOException e) {
             e.printStackTrace();
             Log.i("call", "fail");
-
         }
         
         //TODO AVEC UNE SEULE REQUETE COMPARER LES HITS DE LA VEILLE ET CEUX DU JOUR ET APRES FAIRE LE LINT (ANALYZE --> INSPECT CODE) puis pour finir regarder la compatibilité avec android avant 15

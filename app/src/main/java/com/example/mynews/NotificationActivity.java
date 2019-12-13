@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class NotificationActivity extends AppCompatActivity {
 
+    public static final String KEY_USER_INPUT = "KEY_USER_INPUT";
     private TextView mTextView;
     private PeriodicWorkRequest saveRequest;
     public EditText editText;
@@ -67,7 +68,7 @@ public class NotificationActivity extends AppCompatActivity {
                 .build();
 
         Data.Builder dataBuilder = new Data.Builder()
-                .putString("user_input", searchManager.getLucene(editText.getText().toString(), sectionsCustomView.getSectionsSelected()));
+                .putString(KEY_USER_INPUT, searchManager.getLucene(editText.getText().toString(), sectionsCustomView.getSectionsSelected()));
 
         saveRequest =
                 new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
