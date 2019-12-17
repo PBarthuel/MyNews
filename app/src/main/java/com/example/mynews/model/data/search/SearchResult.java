@@ -8,10 +8,4 @@ public class SearchResult {
     @Expose
     @SerializedName("response")
     public Response response;
-    @Expose
-    @SerializedName("copyright")
-    public String copyright;
-    @Expose
-    @SerializedName("status")
-    public String status;
 }

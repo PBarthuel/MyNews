@@ -54,17 +54,55 @@ public class SearchActivity extends AppCompatActivity implements DatePickerDialo
                         selectFutureDate.getText().toString())) {
                     case OK:
                         Toast.makeText(SearchActivity.this, "Ok", Toast.LENGTH_SHORT).show();
-                        startActivity(
-                                SearchResultActivity.navigate(
-                                        SearchActivity.this,
-                                        searchManager.getLucene(
-                                                editText.getText().toString(),
-                                                sectionsCustomViewSearch.getSectionsSelected()
-                                        ),
-                                        searchManager.getFormattedDate(selectPastDate.getText().toString()),
-                                        searchManager.getFormattedDate(selectFutureDate.getText().toString())
-                                )
-                        );
+                        if (selectPastDate.getText() != null && !selectPastDate.getText().toString().isEmpty() && selectFutureDate.getText() != null && !selectFutureDate.getText().toString().isEmpty()) {
+                            startActivity(
+                                    SearchResultActivity.navigate(
+                                            SearchActivity.this,
+                                            searchManager.getLucene(
+                                                    editText.getText().toString(),
+                                                    sectionsCustomViewSearch.getSectionsSelected()
+                                            ),
+                                            searchManager.getFormattedDate(selectPastDate.getText().toString()),
+                                            searchManager.getFormattedDate(selectFutureDate.getText().toString())
+                                    )
+                            );
+                        } else if (selectPastDate.getText() != null && !selectPastDate.getText().toString().isEmpty()) {
+                            startActivity(
+                                    SearchResultActivity.navigate(
+                                            SearchActivity.this,
+                                            searchManager.getLucene(
+                                                    editText.getText().toString(),
+                                                    sectionsCustomViewSearch.getSectionsSelected()
+                                            ),
+                                            searchManager.getFormattedDate(selectPastDate.getText().toString()),
+                                            LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+                                    )
+                            );
+                        }else if(selectFutureDate.getText() != null && !selectFutureDate.getText().toString().isEmpty()) {
+                            startActivity(
+                                    SearchResultActivity.navigate(
+                                            SearchActivity.this,
+                                            searchManager.getLucene(
+                                                    editText.getText().toString(),
+                                                    sectionsCustomViewSearch.getSectionsSelected()
+                                            ),
+                                            "17890714",
+                                            searchManager.getFormattedDate(selectFutureDate.getText().toString())
+                                    )
+                            );
+                        }else {
+                            startActivity(
+                                    SearchResultActivity.navigate(
+                                            SearchActivity.this,
+                                            searchManager.getLucene(
+                                                    editText.getText().toString(),
+                                                    sectionsCustomViewSearch.getSectionsSelected()
+                                            ),
+                                            "17890714",
+                                            LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+                                    )
+                            );
+                        }
                         break;
                     case INPUT_INCORRECT:
                         Toast.makeText(SearchActivity.this, "Input isn't ok", Toast.LENGTH_SHORT).show();

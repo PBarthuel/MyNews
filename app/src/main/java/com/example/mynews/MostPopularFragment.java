@@ -45,12 +45,12 @@ public class MostPopularFragment extends NamedFragment implements ArticleAdapter
         callMostPopular = service.getMostPopularStory();
         callMostPopular.enqueue(new Callback<MostPopularResult>() {
             @Override
-            public void onResponse(Call<MostPopularResult> call, Response<MostPopularResult> response) {
+            public void onResponse(@NonNull Call<MostPopularResult> call, @NonNull Response<MostPopularResult> response) {
                 articleAdapter.setNewData(map(response.body().getMostPopularArticles()));
             }
 
             @Override
-            public void onFailure(Call<MostPopularResult> call, Throwable t) {
+            public void onFailure(@NonNull Call<MostPopularResult> call, @NonNull Throwable t) {
                 t.printStackTrace();
             }
         });

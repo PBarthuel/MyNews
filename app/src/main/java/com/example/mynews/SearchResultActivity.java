@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -62,14 +63,18 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
         NewYorkTimesAPI api = RetrofitService.getInstance().create(NewYorkTimesAPI.class);
         api.getSearchResponse(userInput, beginDate, endDate).enqueue(new Callback<SearchResult>() {
             @Override
-            public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
+            public void onResponse(@NonNull Call<SearchResult> call, @NonNull Response<SearchResult> response) {
                 Log.d("courgette", "" + response);
-                articleAdapter.setNewData(map(response));
-                viewFlipper.setDisplayedChild(DATA);
+                if(response.body() != null && response.body().response.meta.hits != 0) {
+                    articleAdapter.setNewData(map(response));
+                    viewFlipper.setDisplayedChild(DATA);
+                } else {
+                    viewFlipper.setDisplayedChild(NO_DATA);
+                }
             }
 
             @Override
-            public void onFailure(Call<SearchResult> call, Throwable t) {
+            public void onFailure(@NonNull Call<SearchResult> call, @NonNull Throwable t) {
                 t.printStackTrace();
                 viewFlipper.setDisplayedChild(NO_DATA);
             }

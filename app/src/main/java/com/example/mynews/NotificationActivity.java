@@ -1,5 +1,6 @@
 package com.example.mynews;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -21,12 +22,14 @@ import java.util.concurrent.TimeUnit;
 public class NotificationActivity extends AppCompatActivity {
 
     public static final String KEY_USER_INPUT = "KEY_USER_INPUT";
+    public static final String KEY_ARTICLE_NUMBER = "KEY_ARTICLE_NUMBER";
+    public static final String SHARED_PREFS = "SHARED_PREFS";
+    private int articleNumber;
     private TextView mTextView;
     private PeriodicWorkRequest saveRequest;
     public EditText editText;
     SectionsCustomView sectionsCustomView;
     private SearchManager searchManager = new SearchManager();
-    //TODO regarder les test d'integration via le workmanager et android espresso
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class NotificationActivity extends AppCompatActivity {
         editText = findViewById(R.id.notification_et_user);
 
         sectionsCustomView = findViewById(R.id.cv_notification_checkbox);
+
+        final NotificationHelper notificationHelper = new NotificationHelper(this);
 
         switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
