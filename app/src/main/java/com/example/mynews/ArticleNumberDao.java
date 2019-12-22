@@ -25,8 +25,8 @@ public class ArticleNumberDao extends SQLiteOpenHelper {
 
         disableWal(db);
 
-        db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COLUMN_HITS + " INTEGER," +
-                " " + COLUMN_DATE + " TEXT)");
+        db.execSQL( " CREATE TABLE " + TABLE_NAME + " ( " + COLUMN_HITS + " INTEGER," +
+                " " + COLUMN_DATE + " TEXT ) ");
     }
 
     @Override

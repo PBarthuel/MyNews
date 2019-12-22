@@ -1,6 +1,7 @@
 package com.example.mynews;
 
 import android.annotation.TargetApi;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -37,10 +38,12 @@ public class NotificationHelper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannelNotification() {
-        return new NotificationCompat.Builder(context, channelID)
+    public void displayNotification(String message) {
+        Notification notification = new NotificationCompat.Builder(context, channelID)
                 .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.")
-                .setSmallIcon(R.drawable.ic_launcher_background);
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .build();
+        getManager().notify(0, notification);
     }
 }

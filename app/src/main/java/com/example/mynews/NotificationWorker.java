@@ -26,6 +26,8 @@ public class NotificationWorker extends Worker {
     @Override
     public Result doWork() {
 
+        ArticleNumberDao dao = new ArticleNumberDao(getApplicationContext());
+
         String userInput = getInputData().getString(NotificationActivity.KEY_USER_INPUT);
         NewYorkTimesAPI api = RetrofitService.getInstance().create(NewYorkTimesAPI.class);
         try {
@@ -34,6 +36,9 @@ public class NotificationWorker extends Worker {
                     LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))).execute();
             if (result.body() != null) {
                 int articleNumber = result.body().response.meta.hits;
+                int delta = articleNumber - dao.getDailyHits().getHitsNumber();
+                NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+                notificationHelper.displayNotification(getApplicationContext().getResources().getString(R.string.notification_message, delta));
             }
 
             Log.i("call", "succes");

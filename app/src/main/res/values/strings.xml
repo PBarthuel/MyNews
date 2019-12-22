@@ -27,4 +27,6 @@
     <string name="no_result">No result</string>
     <string name="enable_notification_once_per_day">Enable notification (once per day)</string>
 
+    <string name="notification_message">You missed %d articles</string>
+
 </resources>
