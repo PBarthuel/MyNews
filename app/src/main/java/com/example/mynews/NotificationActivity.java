@@ -1,6 +1,5 @@
 package com.example.mynews;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -22,9 +21,6 @@ import java.util.concurrent.TimeUnit;
 public class NotificationActivity extends AppCompatActivity {
 
     public static final String KEY_USER_INPUT = "KEY_USER_INPUT";
-    public static final String KEY_ARTICLE_NUMBER = "KEY_ARTICLE_NUMBER";
-    public static final String SHARED_PREFS = "SHARED_PREFS";
-    private int articleNumber;
     private TextView mTextView;
     private PeriodicWorkRequest saveRequest;
     public EditText editText;

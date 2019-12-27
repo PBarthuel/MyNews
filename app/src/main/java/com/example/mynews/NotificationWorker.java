@@ -28,6 +28,8 @@ public class NotificationWorker extends Worker {
 
         ArticleNumberDao dao = new ArticleNumberDao(getApplicationContext());
 
+        NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+
         String userInput = getInputData().getString(NotificationActivity.KEY_USER_INPUT);
         NewYorkTimesAPI api = RetrofitService.getInstance().create(NewYorkTimesAPI.class);
         try {
@@ -36,9 +38,14 @@ public class NotificationWorker extends Worker {
                     LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))).execute();
             if (result.body() != null) {
                 int articleNumber = result.body().response.meta.hits;
-                int delta = articleNumber - dao.getDailyHits().getHitsNumber();
-                NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
-                notificationHelper.displayNotification(getApplicationContext().getResources().getString(R.string.notification_message, delta));
+
+
+                if (dao.getDailyHits() != null) {
+                    int delta = articleNumber - dao.getDailyHits().getHitsNumber();
+                    notificationHelper.displayNotification(getApplicationContext().getResources().getString(R.string.notification_message, delta));
+                }
+
+                dao.insertTodayHits(new DailyHits(result.body().response.meta.hits));
             }
 
             Log.i("call", "succes");
@@ -50,6 +57,5 @@ public class NotificationWorker extends Worker {
             return Result.failure();
         }
 
-        //TODO AVEC UNE SEULE REQUETE COMPARER LES HITS DE LA VEILLE ET CEUX DU JOUR ET APRES FAIRE LE LINT (ANALYZE --> INSPECT CODE) puis pour finir regarder la compatibilité avec android avant 15
     }
 }

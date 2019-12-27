@@ -46,7 +46,9 @@ public class MostPopularFragment extends NamedFragment implements ArticleAdapter
         callMostPopular.enqueue(new Callback<MostPopularResult>() {
             @Override
             public void onResponse(@NonNull Call<MostPopularResult> call, @NonNull Response<MostPopularResult> response) {
-                articleAdapter.setNewData(map(response.body().getMostPopularArticles()));
+                if (response.body() != null) {
+                    articleAdapter.setNewData(map(response.body().getMostPopularArticles()));
+                }
             }
 
             @Override
@@ -116,6 +118,6 @@ public class MostPopularFragment extends NamedFragment implements ArticleAdapter
         // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
         CustomTabsIntent customTabsIntent = builder.build();
         // and launch the desired Url with CustomTabsIntent.launchUrl()
-        customTabsIntent.launchUrl(requireContext(), Uri.parse(article.getUrl()));//TODO refactor
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(article.getUrl()));
     }
 }

@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         List<NamedFragment> fragments = new ArrayList<>();
 
-        //TODO METTRE TOUT EN VARIABLE 
         fragments.add(TopStoryFragment.newInstance(SECTION_NAME_HOME, getString(R.string.menu_top_story)));
         fragments.add(new MostPopularFragment());
         fragments.add(TopStoryFragment.newInstance("arts", getString(R.string.menu_arts)));

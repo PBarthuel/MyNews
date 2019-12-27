@@ -17,6 +17,9 @@ import com.example.mynews.model.data.search.Docs;
 import com.example.mynews.model.data.search.SearchResult;
 import com.example.mynews.model.ui.Article;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -41,8 +41,6 @@
         app:layout_constraintTop_toBottomOf="@id/til_search"
         style="@style/ClickableEditText"/>
 
-    <!--TODO RETIRER DRAWABLE RIGHT -->
-
     <Button
         android:id="@+id/futurdate_tv"
         android:layout_width="0dp"

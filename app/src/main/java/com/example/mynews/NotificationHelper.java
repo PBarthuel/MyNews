@@ -40,7 +40,7 @@ public class NotificationHelper {
 
     public void displayNotification(String message) {
         Notification notification = new NotificationCompat.Builder(context, channelID)
-                .setContentTitle("Alarm!")
+                .setContentTitle("Come back !")
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .build();
