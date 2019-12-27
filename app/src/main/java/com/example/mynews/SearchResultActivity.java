@@ -18,7 +18,7 @@ import com.example.mynews.model.data.search.SearchResult;
 import com.example.mynews.model.ui.Article;
 
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.DateTimeFormatterBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,14 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH;
+import static org.threeten.bp.temporal.ChronoField.HOUR_OF_DAY;
+import static org.threeten.bp.temporal.ChronoField.MINUTE_OF_HOUR;
+import static org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR;
+import static org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND;
+import static org.threeten.bp.temporal.ChronoField.SECOND_OF_MINUTE;
+import static org.threeten.bp.temporal.ChronoField.YEAR;
 
 public class SearchResultActivity extends AppCompatActivity implements ArticleAdapter.Listener {
 
@@ -96,7 +104,33 @@ public class SearchResultActivity extends AppCompatActivity implements ArticleAd
                     imageUrl = "https://static01.nyt.com/" + docs.multimedia.get(0).url;
                 }
 
-                Article article = new Article(imageUrl, docs.headline.printHeadline, docs.snippet, docs.pubDate, docs.webUrl);
+                LocalDate date = LocalDate.parse(
+                    docs.pubDate,
+                    new DateTimeFormatterBuilder()
+                        .appendValue(YEAR, 4)
+                        .appendLiteral('-')
+                        .appendValue(MONTH_OF_YEAR)
+                        .appendLiteral('-')
+                        .appendValue(DAY_OF_MONTH)
+                        .appendLiteral('T')
+                        .appendValue(HOUR_OF_DAY, 2)
+                        .appendLiteral(':')
+                        .appendValue(MINUTE_OF_HOUR, 2)
+                        .optionalStart()
+                        .appendLiteral(':')
+                        .appendValue(SECOND_OF_MINUTE, 2)
+                        .appendLiteral('+')
+                        .appendValue(NANO_OF_SECOND, 4)
+                        .toFormatter()
+                );
+
+                Article article = new Article(
+                    imageUrl,
+                    docs.headline.printHeadline,
+                    docs.snippet,
+                    date.toString(),
+                    docs.webUrl
+                );
                 articleList.add(article);
             }
         }
