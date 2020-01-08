@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Notification;
 
 import android.os.Bundle;
 import android.widget.CompoundButton;
@@ -12,6 +12,12 @@ import androidx.work.Data;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+
+import com.example.mynews.Notification.NotificationHelper;
+import com.example.mynews.Notification.NotificationWorker;
+import com.example.mynews.R;
+import com.example.mynews.Search.SearchManager;
+import com.example.mynews.SectionsCustomView;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -39,8 +45,6 @@ public class NotificationActivity extends AppCompatActivity {
         editText = findViewById(R.id.notification_et_user);
 
         sectionsCustomView = findViewById(R.id.cv_notification_checkbox);
-
-        final NotificationHelper notificationHelper = new NotificationHelper(this);
 
         switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

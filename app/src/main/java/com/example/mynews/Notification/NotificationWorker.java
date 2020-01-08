@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Notification;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.mynews.ArticleNumberDao;
+import com.example.mynews.NewYorkTimesAPI;
+import com.example.mynews.R;
+import com.example.mynews.RetrofitService;
 import com.example.mynews.model.data.search.SearchResult;
 
 import org.threeten.bp.LocalDate;

@@ -9,6 +9,8 @@ import android.os.Build;
 
 import androidx.annotation.Nullable;
 
+import com.example.mynews.Notification.DailyHits;
+
 import org.threeten.bp.LocalDate;
 
 public class ArticleNumberDao extends SQLiteOpenHelper {

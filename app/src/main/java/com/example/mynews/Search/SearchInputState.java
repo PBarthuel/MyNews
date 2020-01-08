@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Search;
 
 public enum SearchInputState {
     INPUT_INCORRECT,

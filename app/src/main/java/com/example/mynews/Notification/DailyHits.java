@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Notification;
 
 public class DailyHits {
 

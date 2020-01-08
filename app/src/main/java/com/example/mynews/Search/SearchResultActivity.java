@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Search;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +15,10 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mynews.ArticleAdapter;
+import com.example.mynews.NewYorkTimesAPI;
+import com.example.mynews.R;
+import com.example.mynews.RetrofitService;
 import com.example.mynews.model.data.search.Docs;
 import com.example.mynews.model.data.search.SearchResult;
 import com.example.mynews.model.ui.Article;

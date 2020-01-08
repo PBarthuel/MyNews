@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Search;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;

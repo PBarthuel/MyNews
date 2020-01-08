@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Search;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mynews.R;
+import com.example.mynews.SectionsCustomView;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;

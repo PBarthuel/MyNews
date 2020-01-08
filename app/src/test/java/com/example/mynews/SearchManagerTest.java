@@ -1,5 +1,8 @@
 package com.example.mynews;
 
+import com.example.mynews.Search.SearchInputState;
+import com.example.mynews.Search.SearchManager;
+
 import org.junit.Test;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;

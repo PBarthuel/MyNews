@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchResultActivity" />
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".Search.SearchResultActivity" />
+        <activity android:name=".Notification.NotificationActivity" />
+        <activity android:name=".Search.SearchActivity" />
         <activity
             android:name=".MainActivity"
             android:label="MyNews"

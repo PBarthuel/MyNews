@@ -1,4 +1,4 @@
-package com.example.mynews;
+package com.example.mynews.Notification;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -8,6 +8,8 @@ import android.content.Context;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+
+import com.example.mynews.R;
 
 public class NotificationHelper {
     public static final String channelID = "channelID";
