@@ -89,7 +89,7 @@ public abstract class TopStoryAbsFragment extends NamedFragment implements Artic
 
             String nonHumanDate = article.getPublishedDate();
             LocalDate date = LocalDate.parse(nonHumanDate, DateTimeFormatter.ISO_ZONED_DATE_TIME);
-            String humanDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String humanDate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
             String url = article.getUrl();
 
