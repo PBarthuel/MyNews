@@ -101,7 +101,7 @@ public class SearchManagerTest {
         //Given
         String userInput = null;
         //When
-        SearchInputState result = searchManager.isUserInputCorrect(userInput, new ArrayList<String>(), "", "");
+        SearchInputState result = searchManager.isUserInputCorrect(null, new ArrayList<String>(), "", "");
         //Then
         assertEquals(SearchInputState.INPUT_INCORRECT, result);
     }

@@ -11,14 +11,14 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.mynews.R;
 
-public class NotificationHelper {
-    public static final String channelID = "channelID";
-    public static final String channelName = "Channel Name";
+class NotificationHelper {
+    private static final String channelID = "channelID";
+    private static final String channelName = "Channel Name";
     private Context context;
 
     private NotificationManager mManager;
 
-    public NotificationHelper(Context context) {
+    NotificationHelper(Context context) {
         this.context = context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
@@ -32,7 +32,7 @@ public class NotificationHelper {
         getManager().createNotificationChannel(channel);
     }
 
-    public NotificationManager getManager() {
+    private NotificationManager getManager() {
         if (mManager == null) {
             mManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
@@ -40,7 +40,7 @@ public class NotificationHelper {
         return mManager;
     }
 
-    public void displayNotification(String message) {
+    void displayNotification(String message) {
         Notification notification = new NotificationCompat.Builder(context, channelID)
                 .setContentTitle("Come back !")
                 .setContentText(message)

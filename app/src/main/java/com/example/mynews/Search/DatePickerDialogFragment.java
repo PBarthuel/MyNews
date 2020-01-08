@@ -19,7 +19,7 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
     private OnDateSelectedListener mListener;
 
 
-    public static DatePickerDialogFragment newInstance(boolean isStart, LocalDate dateToDisplay) {
+    static DatePickerDialogFragment newInstance(boolean isStart, LocalDate dateToDisplay) {
         DatePickerDialogFragment frag = new DatePickerDialogFragment();
         Bundle args = new Bundle();
         args.putBoolean(IS_START, isStart);
@@ -31,7 +31,9 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        assert getArguments() != null;
         LocalDate localDate = (LocalDate) getArguments().getSerializable(INITIAL_DATE);
+        assert localDate != null;
         return new DatePickerDialog(requireContext(), this, localDate.getYear(), localDate.getMonthValue() - 1, localDate.getDayOfYear());
     }
 
@@ -43,6 +45,7 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        assert getArguments() != null;
         mListener.onDateSelected(LocalDate.of(year, month + 1, dayOfMonth), getArguments().getBoolean(IS_START));
     }
 

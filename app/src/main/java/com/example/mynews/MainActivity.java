@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fragments.add(TopStoryFragment.newInstance(SECTION_NAME_HOME, getString(R.string.menu_top_story)));
         fragments.add(new MostPopularFragment());
-        fragments.add(TopStoryFragment.newInstance("arts", getString(R.string.menu_arts)));
-        fragments.add(TopStoryFragment.newInstance("business", getString(R.string.menu_business)));
-        fragments.add(TopStoryFragment.newInstance("technology", getString(R.string.menu_technology)));
+        fragments.add(TopStoryFragment.newInstance(getString(R.string.arts), getString(R.string.menu_arts)));
+        fragments.add(TopStoryFragment.newInstance(getString(R.string.business), getString(R.string.menu_business)));
+        fragments.add(TopStoryFragment.newInstance(getString(R.string.technology), getString(R.string.menu_technology)));
 
         Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);

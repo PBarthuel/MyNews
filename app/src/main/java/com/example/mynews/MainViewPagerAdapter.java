@@ -1,5 +1,6 @@
 package com.example.mynews;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -8,15 +9,16 @@ import java.util.List;
 
 class MainViewPagerAdapter extends FragmentPagerAdapter {
 
-    List<NamedFragment> fragments;
+    private List<NamedFragment> fragments;
 
-    public MainViewPagerAdapter(FragmentManager supportFragmentManager, List<NamedFragment> fragments) {
+    MainViewPagerAdapter(FragmentManager supportFragmentManager, List<NamedFragment> fragments) {
         super(supportFragmentManager);
 
         this.fragments = fragments;
 
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);

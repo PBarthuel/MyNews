@@ -48,7 +48,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView mImageViewThumbnail;
         private final TextView mTextViewTopic;
@@ -56,7 +56,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         private final TextView mTextViewTitle;
         private final TextView mTextViewUrl;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mTextViewUrl = itemView.findViewById(R.id.main_item_tv_url);

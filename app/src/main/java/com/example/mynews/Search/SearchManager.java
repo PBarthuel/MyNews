@@ -59,7 +59,7 @@ public class SearchManager {
         return resultLucene.toString();
     }
 
-    public String getFormattedDate(String formattedDate) {
+    String getFormattedDate(String formattedDate) {
 
         if (formattedDate != null && !formattedDate.isEmpty()) {
             LocalDate date = LocalDate.parse(formattedDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));

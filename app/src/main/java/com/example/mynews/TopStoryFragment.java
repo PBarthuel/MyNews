@@ -8,7 +8,7 @@ public class TopStoryFragment extends TopStoryAbsFragment {
     private static final String KEY_SECTION_TITLE = "KEY_SECTION_TITLE";
 
 
-    public static TopStoryFragment newInstance (String sectionName, String sectionTitle) {
+    static TopStoryFragment newInstance(String sectionName, String sectionTitle) {
 
         Bundle args = new Bundle();
         args.putString(KEY_SECTION, sectionName);
@@ -21,11 +21,13 @@ public class TopStoryFragment extends TopStoryAbsFragment {
 
     @Override
     protected String getSectionName() {
+        assert getArguments() != null;
         return getArguments().getString(KEY_SECTION);
     }
 
     @Override
     String getTitle() {
+        assert getArguments() != null;
         return getArguments().getString(KEY_SECTION_TITLE);
     }
 }

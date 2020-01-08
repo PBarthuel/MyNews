@@ -13,8 +13,6 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.mynews.Notification.NotificationHelper;
-import com.example.mynews.Notification.NotificationWorker;
 import com.example.mynews.R;
 import com.example.mynews.Search.SearchManager;
 import com.example.mynews.SectionsCustomView;

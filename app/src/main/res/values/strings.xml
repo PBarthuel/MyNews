@@ -28,5 +28,8 @@
     <string name="enable_notification_once_per_day">Enable notification (once per day)</string>
 
     <string name="notification_message">You missed %d articles</string>
+    <string name="arts">arts</string>
+    <string name="business">business</string>
+    <string name="technology">technology</string>
 
 </resources>
