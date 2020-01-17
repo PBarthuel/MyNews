@@ -13,8 +13,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.mynews.Notification.NotificationActivity;
-import com.example.mynews.Search.SearchActivity;
+import com.example.mynews.most_popular.MostPopularFragment;
+import com.example.mynews.notification.NotificationActivity;
+import com.example.mynews.search.SearchActivity;
+import com.example.mynews.top_story.TopStoryFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 

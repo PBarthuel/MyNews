@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mynews.model.ui.Article;
+import com.example.mynews.ui.Article;
 
 import java.util.List;
 

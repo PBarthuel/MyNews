@@ -2,6 +2,6 @@ package com.example.mynews;
 
 import androidx.fragment.app.Fragment;
 
-abstract class NamedFragment extends Fragment {
-    abstract String getTitle();
+public abstract class NamedFragment extends Fragment {
+    protected abstract String getTitle();
 }

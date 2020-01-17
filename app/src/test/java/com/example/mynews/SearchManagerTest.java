@@ -1,7 +1,7 @@
 package com.example.mynews;
 
-import com.example.mynews.Search.SearchInputState;
-import com.example.mynews.Search.SearchManager;
+import com.example.mynews.search.SearchInputState;
+import com.example.mynews.search.SearchManager;
 
 import org.junit.Test;
 import org.threeten.bp.LocalDate;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Search.SearchActivity">
+    tools:context=".search.SearchActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/search_guide_line_half"
@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="@id/search_guide_line_half"
         app:layout_constraintTop_toBottomOf="@id/til_search" />
 
-    <com.example.mynews.SectionsCustomView
+    <com.example.mynews.search.SectionsCustomView
         android:id="@+id/cv_search_checkbox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
