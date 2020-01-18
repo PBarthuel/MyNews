@@ -1,5 +1,6 @@
 package com.example.mynews.notification;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -7,7 +8,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Dao;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.NetworkType;
@@ -49,13 +49,14 @@ public class NotificationActivity extends AppCompatActivity {
 
         Boolean notificationEnabled = dao.isNotificationEnabled();
 
-        if(notificationEnabled != null && notificationEnabled) {
+        if (notificationEnabled != null && notificationEnabled) {
             switchNotification.setChecked(true);
-        }else {
+        } else {
             switchNotification.setChecked(false);
         }
 
         switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -77,6 +78,7 @@ public class NotificationActivity extends AppCompatActivity {
         mTextView.setText(timeText);
     }
 
+    @SuppressLint("RestrictedApi")
     private void startAlarm() {
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
