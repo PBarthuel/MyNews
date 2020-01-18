@@ -26,4 +26,17 @@ public class NotificationDao {
     public int loadHits() {
         return sharedPreferences.getInt("saved_hits", 0);
     }
+
+    public void notificationEnabled (Boolean isEnabled) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean("isEnabled", isEnabled);
+
+        editor.apply();
+        editor.commit();
+    }
+
+    public Boolean isEnabled() {
+        return sharedPreferences.getBoolean("isEnabled", false);
+    }
 }

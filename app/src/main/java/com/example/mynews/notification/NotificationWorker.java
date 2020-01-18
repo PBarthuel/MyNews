@@ -11,7 +11,6 @@ import com.example.mynews.R;
 import com.example.mynews.data.model.search.SearchResult;
 import com.example.mynews.data.retrofit.NewYorkTimesAPI;
 import com.example.mynews.data.retrofit.RetrofitService;
-import com.example.mynews.notification.data.ArticleNumberDao;
 import com.example.mynews.notification.data.NotificationDao;
 
 import org.threeten.bp.LocalDate;

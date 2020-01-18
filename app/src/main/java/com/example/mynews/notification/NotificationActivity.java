@@ -7,7 +7,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Constraints;
@@ -17,7 +16,6 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.example.mynews.R;
-import com.example.mynews.notification.data.ArticleNumberDao;
 import com.example.mynews.notification.data.NotificationDao;
 import com.example.mynews.search.SearchManager;
 import com.example.mynews.search.SectionsCustomView;
@@ -32,7 +30,6 @@ public class NotificationActivity extends AppCompatActivity {
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String ID = "id";
-    public static final String SAVED_HITS = "savedHits";
 
     public static final String KEY_USER_INPUT = "KEY_USER_INPUT";
 
@@ -43,12 +40,13 @@ public class NotificationActivity extends AppCompatActivity {
     private PeriodicWorkRequest saveRequest;
 
     private SearchManager searchManager = new SearchManager();
-    ArticleNumberDao dao = new ArticleNumberDao(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
+
+        final NotificationDao notificationDao = new NotificationDao(getApplicationContext());
 
         mTextView = findViewById(R.id.et_notification_activity);
 
@@ -58,7 +56,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         sectionsCustomView = findViewById(R.id.cv_notification_checkbox);
 
-        final Boolean notificationEnabled = dao.isNotificationEnabled();
+        final Boolean notificationEnabled = notificationDao.isEnabled();
 
         if (notificationEnabled != null && notificationEnabled) {
             switchNotification.setChecked(true);
@@ -71,10 +69,9 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    dao.isNotificationEnabled(true);
+                    notificationDao.notificationEnabled(true);
                     updateTimeText();
                     startAlarm();
-                    Toast.makeText(NotificationActivity.this, loadId(), Toast.LENGTH_SHORT).show();
                 } else {
                     cancelAlarm();
                     mTextView.setText("");
@@ -113,8 +110,10 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void cancelAlarm() {
-        dao.isNotificationEnabled(false);
+        NotificationDao notificationDao = new NotificationDao(getApplicationContext());
+        notificationDao.notificationEnabled(false);
         WorkManager.getInstance(this).cancelWorkById(UUID.fromString(loadId()));
+        notificationDao.savedHits(0);
     }
 
     @SuppressLint("RestrictedApi")
@@ -131,20 +130,5 @@ public class NotificationActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
         return sharedPreferences.getString(ID, "");
-    }
-
-    public void savedHits(int savedHits) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putInt(SAVED_HITS, savedHits);
-
-        editor.apply();
-    }
-
-    public int loadHits() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-
-        return sharedPreferences.getInt(SAVED_HITS, 0);
     }
 }
