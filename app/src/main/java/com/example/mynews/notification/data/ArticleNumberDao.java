@@ -98,7 +98,7 @@ public class ArticleNumberDao extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_ID, id);
 
-        if (id != null) {
+        if (id != null && !id.isEmpty()) {
             getWritableDatabase().update(TABLE_NAME_ID, contentValues, null, null);
         }else {
             getWritableDatabase().insert(TABLE_NAME_ID, null, contentValues);

@@ -6,6 +6,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Constraints;
@@ -22,6 +23,7 @@ import com.example.mynews.search.SectionsCustomView;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class NotificationActivity extends AppCompatActivity {
@@ -97,10 +99,11 @@ public class NotificationActivity extends AppCompatActivity {
         WorkManager.getInstance(this)
                 .enqueue(saveRequest);
 
+        dao.insertNotificationId(saveRequest.getStringId());
     }
 
     private void cancelAlarm() {
         dao.isNotificationEnabled(false);
-        WorkManager.getInstance(this).cancelWorkById(saveRequest.getId());
+        WorkManager.getInstance(this).cancelWorkById(UUID.fromString(dao.getIdNotification()));
     }
 }
