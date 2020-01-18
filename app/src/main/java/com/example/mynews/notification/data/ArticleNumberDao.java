@@ -2,6 +2,7 @@ package com.example.mynews.notification.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -17,11 +18,9 @@ public class ArticleNumberDao extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "hits_history";
     private static final String TABLE_NAME_ENABLED = "enabled_history";
-    private static final String TABLE_NAME_ID = "id_history";
     private static final String COLUMN_HITS = "hits";
     private static final String COLUMN_DATE = "date";
     private static final String COLUMN_ENABLED = "enabled";
-    private static final String COLUMN_ID = "id";
 
     public ArticleNumberDao(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -31,12 +30,13 @@ public class ArticleNumberDao extends SQLiteOpenHelper {
 
         disableWal(db);
 
-        db.execSQL(" CREATE TABLE " + TABLE_NAME + " ( " + COLUMN_HITS + " INTEGER," +
-                " " + COLUMN_DATE + " TEXT ) ");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + "(" +
+                COLUMN_HITS + " INTEGER, " +
+                COLUMN_DATE + " TEXT) ");
 
-        db.execSQL(" CREATE TABLE " + TABLE_NAME_ENABLED + " ( " + COLUMN_ENABLED + " BYTE ) ");
+        db.execSQL("CREATE TABLE " + TABLE_NAME_ENABLED + "(" +
+                COLUMN_ENABLED + " BYTE) ");
 
-        db.execSQL(" CREATE TABLE " + TABLE_NAME_ID + " ( " + COLUMN_ID + " TEXT ) ");
     }
 
     @Override
@@ -62,25 +62,6 @@ public class ArticleNumberDao extends SQLiteOpenHelper {
         }
     }
 
-    public void insertTodayHits(DailyHits dailyHits) {
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_HITS, dailyHits.getHitsNumber());
-        contentValues.put(COLUMN_DATE, LocalDate.now().toString());
-
-        if (getDailyHits() != null) {
-            // We need to escape the parameter "contentValues.get(COLUMN_DATE)" because if it's not
-            // explicitly considered as a String, I guess maths get in and try to actually compute
-            // the date, like 2019-02-04 would result as 2019 - 02 - 04 which is, mathematically,
-            // equal to 2013.
-            String whereClause = COLUMN_DATE + " = \"" + contentValues.get(COLUMN_DATE) + "\"";
-
-            getWritableDatabase().update(TABLE_NAME, contentValues, whereClause, null);
-        } else {
-            getWritableDatabase().insert(TABLE_NAME, null, contentValues);
-        }
-    }
-
     public void isNotificationEnabled(boolean switchState) {
 
         ContentValues contentValues = new ContentValues();
@@ -90,41 +71,6 @@ public class ArticleNumberDao extends SQLiteOpenHelper {
             getWritableDatabase().update(TABLE_NAME_ENABLED, contentValues, null, null);
         } else {
             getWritableDatabase().insert(TABLE_NAME_ENABLED, null, contentValues);
-        }
-    }
-
-    public void insertNotificationId (String id) {
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID, id);
-
-        if (id != null && !id.isEmpty()) {
-            getWritableDatabase().update(TABLE_NAME_ID, contentValues, null, null);
-        }else {
-            getWritableDatabase().insert(TABLE_NAME_ID, null, contentValues);
-        }
-    }
-
-    @Nullable
-    public DailyHits getDailyHits() {
-
-        Cursor cursor = getReadableDatabase().query(TABLE_NAME,
-                null,
-                COLUMN_DATE + " = \"" + LocalDate.now().toString() + "\"",
-                null,
-                null,
-                null,
-                COLUMN_DATE + " DESC",
-                "1");
-
-        if (cursor.moveToFirst()) {
-            int hits = cursor.getInt(cursor.getColumnIndex(COLUMN_HITS));
-
-            cursor.close();
-
-            return new DailyHits(hits);
-        } else {
-            return null;
         }
     }
 
@@ -151,27 +97,5 @@ public class ArticleNumberDao extends SQLiteOpenHelper {
         cursor.close();
 
         return isEnabled;
-    }
-
-    public String getIdNotification() {
-
-        Cursor cursor = getReadableDatabase().query(TABLE_NAME_ID,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                "1");
-
-        if (cursor.moveToNext()) {
-            String id = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
-
-            cursor.close();
-
-            return id;
-        } else {
-            return null;
-        }
     }
 }

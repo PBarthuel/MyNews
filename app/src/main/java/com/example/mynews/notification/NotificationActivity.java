@@ -1,6 +1,7 @@
 package com.example.mynews.notification;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import androidx.work.WorkManager;
 
 import com.example.mynews.R;
 import com.example.mynews.notification.data.ArticleNumberDao;
+import com.example.mynews.notification.data.NotificationDao;
 import com.example.mynews.search.SearchManager;
 import com.example.mynews.search.SectionsCustomView;
 
@@ -28,11 +30,18 @@ import java.util.concurrent.TimeUnit;
 
 public class NotificationActivity extends AppCompatActivity {
 
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String ID = "id";
+    public static final String SAVED_HITS = "savedHits";
+
     public static final String KEY_USER_INPUT = "KEY_USER_INPUT";
+
     private TextView mTextView;
-    private PeriodicWorkRequest saveRequest;
     public EditText editText;
     SectionsCustomView sectionsCustomView;
+
+    private PeriodicWorkRequest saveRequest;
+
     private SearchManager searchManager = new SearchManager();
     ArticleNumberDao dao = new ArticleNumberDao(this);
 
@@ -49,7 +58,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         sectionsCustomView = findViewById(R.id.cv_notification_checkbox);
 
-        Boolean notificationEnabled = dao.isNotificationEnabled();
+        final Boolean notificationEnabled = dao.isNotificationEnabled();
 
         if (notificationEnabled != null && notificationEnabled) {
             switchNotification.setChecked(true);
@@ -65,6 +74,7 @@ public class NotificationActivity extends AppCompatActivity {
                     dao.isNotificationEnabled(true);
                     updateTimeText();
                     startAlarm();
+                    Toast.makeText(NotificationActivity.this, loadId(), Toast.LENGTH_SHORT).show();
                 } else {
                     cancelAlarm();
                     mTextView.setText("");
@@ -91,7 +101,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         saveRequest =
                 new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
-                        .setInitialDelay(1, TimeUnit.DAYS)
+                        //.setInitialDelay(1, TimeUnit.DAYS)
                         .setInputData(dataBuilder.build())
                         .setConstraints(constraints)
                         .build();
@@ -99,11 +109,42 @@ public class NotificationActivity extends AppCompatActivity {
         WorkManager.getInstance(this)
                 .enqueue(saveRequest);
 
-        dao.insertNotificationId(saveRequest.getStringId());
+        saveId();
     }
 
     private void cancelAlarm() {
         dao.isNotificationEnabled(false);
-        WorkManager.getInstance(this).cancelWorkById(UUID.fromString(dao.getIdNotification()));
+        WorkManager.getInstance(this).cancelWorkById(UUID.fromString(loadId()));
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void saveId() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(ID, saveRequest.getStringId());
+
+        editor.apply();
+    }
+
+    public String loadId() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+        return sharedPreferences.getString(ID, "");
+    }
+
+    public void savedHits(int savedHits) {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt(SAVED_HITS, savedHits);
+
+        editor.apply();
+    }
+
+    public int loadHits() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+        return sharedPreferences.getInt(SAVED_HITS, 0);
     }
 }

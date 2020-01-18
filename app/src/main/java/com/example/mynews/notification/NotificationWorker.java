@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.mynews.data.retrofit.NewYorkTimesAPI;
 import com.example.mynews.R;
-import com.example.mynews.data.retrofit.RetrofitService;
 import com.example.mynews.data.model.search.SearchResult;
+import com.example.mynews.data.retrofit.NewYorkTimesAPI;
+import com.example.mynews.data.retrofit.RetrofitService;
 import com.example.mynews.notification.data.ArticleNumberDao;
-import com.example.mynews.notification.data.DailyHits;
+import com.example.mynews.notification.data.NotificationDao;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -31,7 +31,7 @@ public class NotificationWorker extends Worker {
     @Override
     public Result doWork() {
 
-        ArticleNumberDao dao = new ArticleNumberDao(getApplicationContext());
+        NotificationDao notificationDao = new NotificationDao(getApplicationContext());
 
         NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
 
@@ -44,13 +44,10 @@ public class NotificationWorker extends Worker {
             if (result.body() != null) {
                 int articleNumber = result.body().response.meta.hits;
 
+                int delta = articleNumber - notificationDao.loadHits();
+                notificationHelper.displayNotification(getApplicationContext().getResources().getString(R.string.notification_message, delta));
 
-                if (dao.getDailyHits() != null) {
-                    int delta = articleNumber - dao.getDailyHits().getHitsNumber();
-                    notificationHelper.displayNotification(getApplicationContext().getResources().getString(R.string.notification_message, delta));
-                }
-
-                dao.insertTodayHits(new DailyHits(result.body().response.meta.hits));
+                notificationDao.savedHits(result.body().response.meta.hits);
             }
 
             Log.i("call", "succes");
