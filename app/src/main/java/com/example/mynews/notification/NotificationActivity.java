@@ -7,6 +7,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Constraints;
@@ -17,9 +18,11 @@ import androidx.work.WorkManager;
 
 import com.example.mynews.R;
 import com.example.mynews.notification.data.NotificationDao;
+import com.example.mynews.search.SearchActivity;
 import com.example.mynews.search.SearchManager;
 import com.example.mynews.search.SectionsCustomView;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -68,16 +71,38 @@ public class NotificationActivity extends AppCompatActivity {
             @SuppressLint("RestrictedApi")
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    notificationDao.notificationEnabled(true);
-                    updateTimeText();
-                    startAlarm();
-                } else {
-                    cancelAlarm();
-                    mTextView.setText("");
+                switch (searchManager.isUserInputCorrect(editText.getText().toString(),
+                        sectionsCustomView.getSectionsSelected(),
+                        "14/07/1789",
+                        LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/YYYY")))) {
+                    case OK:
+                        Toast.makeText(NotificationActivity.this, "Ok", Toast.LENGTH_SHORT).show();
+                        if (isChecked) {
+                            notificationDao.notificationEnabled(true);
+                            updateTimeText();
+                            startAlarm();
+                        } else {
+                            cancelAlarm();
+                            mTextView.setText("");
+                        }
+                        break;
+                    case INPUT_INCORRECT:
+                        Toast.makeText(NotificationActivity.this, "Input isn't ok", Toast.LENGTH_SHORT).show();
+                        cancelAlarm();
+                        notificationDao.notificationEnabled(false);
+                        switchNotification.setChecked(false);
+                        break;
+                    case NO_SECTIONS_SELECTED:
+                        Toast.makeText(NotificationActivity.this, "You must select at least one section", Toast.LENGTH_SHORT).show();
+                        cancelAlarm();
+                        notificationDao.notificationEnabled(false);
+                        switchNotification.setChecked(false);
+                        break;
                 }
             }
         });
+
+
     }
 
     private void updateTimeText() {
@@ -98,7 +123,6 @@ public class NotificationActivity extends AppCompatActivity {
 
         saveRequest =
                 new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
-                        //.setInitialDelay(1, TimeUnit.DAYS)
                         .setInputData(dataBuilder.build())
                         .setConstraints(constraints)
                         .build();
