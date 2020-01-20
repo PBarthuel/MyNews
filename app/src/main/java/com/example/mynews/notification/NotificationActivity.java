@@ -91,12 +91,14 @@ public class NotificationActivity extends AppCompatActivity {
                         cancelAlarm();
                         notificationDao.notificationEnabled(false);
                         switchNotification.setChecked(false);
+
                         break;
                     case NO_SECTIONS_SELECTED:
                         Toast.makeText(NotificationActivity.this, "You must select at least one section", Toast.LENGTH_SHORT).show();
                         cancelAlarm();
                         notificationDao.notificationEnabled(false);
                         switchNotification.setChecked(false);
+
                         break;
                 }
             }
@@ -136,7 +138,9 @@ public class NotificationActivity extends AppCompatActivity {
     private void cancelAlarm() {
         NotificationDao notificationDao = new NotificationDao(getApplicationContext());
         notificationDao.notificationEnabled(false);
-        WorkManager.getInstance(this).cancelWorkById(UUID.fromString(loadId()));
+        if(loadId() != null && !loadId().isEmpty()) {
+            WorkManager.getInstance(this).cancelWorkById(UUID.fromString(loadId()));
+        }
         notificationDao.savedHits(0);
     }
 
